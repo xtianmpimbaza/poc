@@ -1,0 +1,37 @@
+body { margin: 0 0; font: 12px Arial, Helvetica, sans-serif; color: #666; }
+
+a { color: #666; text-decoration: none; }
+a:hover { text-decoration: underline; }
+
+span { text-indent: -10px; }
+
+#clear { }
+
+#header { position: absolute; top: 0; left: 50%; margin-left: -540px; width: 1080px; height: 100px; }
+#header .left { float: left; padding-top: 30px; width: 350px; }
+#header .right { padding-top: 30px; margin-left: 350px; }
+
+#logo { background: url(../img/logo.jpg) left no-repeat; width: 260px; height: 50px; }
+
+#slideshow { margin-top: 100px; background: url(../img/bg-slide.png) top repeat-x; height: 500px; color: #fff; }
+#slideshow .wrapper { padding: 5px 0; background: url(../img/01.jpg) top left no-repeat; height: inherit; }
+#slideshow .left { float: left; padding-top: 180px; width: 580px; }
+#slideshow .left div { padding-bottom: 15px; }
+#slideshow .left div span { font-size: 21px; }
+#slideshow .right { float: right; padding: 15px 0 0 10px; width: 420px; }
+
+#footer { position: absolute; top: 0; left: 50%; margin-top: 600px; margin-left: -540px; padding: 15px 0; width: 1080px; }
+
+/* login */
+#login div { float: right; margin-left: 8px; line-height: 24px; }
+#login input[type=text], #login input[type=password] { padding: 7px; border: 1px solid #ccc; border-radius: 3px; -moz-border-radius: 3px; -webkit-border-radius: 3px; font: 12px Verdana, Geneva, sans-serif; color: #666; width: 200px; }
+#login input[type=text]:hover, #login input[type=text]:focus, #login input[type=password]:hover, #login input[type=password]:focus { border-color: #999; }
+#login input[type=button] { padding: 6px 10px; background: #555; border: 1px solid #555; border-radius: 3px; -moz-border-radius: 3px; -webkit-border-radius: 3px; font: 12px Verdana, Geneva, sans-serif; color: #ddd; }
+#login input[type=button]:hover, #login input[type=button]:focus { background: #333; border-collapse: #333; cursor: pointer; }
+
+/* register */
+#register { }
+#register .title { padding: 28px 0; }
+#register div { padding-bottom: 10px; }
+#register input[type=text], #register input[type=password] { padding: 8px; border: 1px solid #555; border-radius: 5px; -moz-border-radius: 5px; -webkit-border-radius: 5px; font-size: 16px; font-weight: bold; color: #999; width: 360px; }
+#register input.split { width: 165px; }
