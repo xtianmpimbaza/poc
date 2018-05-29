@@ -14,15 +14,20 @@ require_once 'functions.php';
     <link rel="stylesheet" href="./css/bootstrap.min.css" type="text/css">
 </head>
 <body>
-<div id="header"><?php include('./inc/header.inc.php'); ?></div>
-
-<div id="container" style="width: 100%">
-
-    <div class="left">
+<div class="container-fluid "><div style="padding: 0px; ">
+    <img src="img/header-logo.jpg" alt=""/>
+</div>
+<div id="container">
+    <div class="left" style="">
         <div style="margin-top: 20px; padding: 25px 25px; font-size: 16px; color: #555">
             <div id="search">
                 <img id="displayimage" src="" style="width: 850px;height: 480px;margin: -35px 0px 0px -10px;">
             </div>
+        </div>
+        <div class="btn-group text-center" role="group" aria-label="Basic example">
+            <button type="button" class="btn btn-primary" data-toggle="modal" data-target="#myModal">Add</button>
+            <button type="button" class="btn btn-success">Modify</button>
+            <button type="button" class="btn btn-danger">Deactivate</button>
         </div>
     </div>
     <div class="right">
@@ -34,6 +39,7 @@ require_once 'functions.php';
                 $funs = new Functions();
                 $assets = $funs->listAssets();
                 if (!empty($assets)) {
+                    $assets = array_reverse($assets);
                     ?>
                     <input type="hidden" id="defaultimage" name="defaultimage"
                            value="<?php echo $assets[0]['details']['file']; ?>"/>
@@ -43,7 +49,7 @@ require_once 'functions.php';
                         ?>
                         <div class="item">
                             <strong><a href="#"
-                                       onclick="setImage('<?php echo $item['details']['file']; ?>')"><?php echo $item['issuetxid']; ?></a></strong><br/>
+                                       onclick="setImage('<?php echo $item['details']['file']; ?>')"><?php echo $item['name']; ?></a></strong><br/>
                         </div>
                         <?php
                     }
@@ -58,29 +64,53 @@ require_once 'functions.php';
                 </div>
             </div>
         </div>
-    </div>
 
-    <div id=""><?php include('./inc/modify.php'); ?></div>
-    <div>
-        <div style="font-size: 16px; color: #555">
-            <div style="font: 11px Tahoma, Verdana, Geneva, sans-serif; text-align: center;">
-                <div>
+    </div>
+</div>
+    <!--    <div id="">--><?php //include('./inc/modify.php'); ?><!--</div>-->
+
+    <!-- The Modal -->
+    <div class="modal" id="myModal">
+        <div class="modal-dialog">
+            <div class="modal-content">
+
+                <!-- Modal Header -->
+                <div class="modal-header">
+                    <h4 class="modal-title">Modal Heading</h4>
+                    <button type="button" class="close" data-dismiss="modal">&times;</button>
+                </div>
+
+                <!-- Modal body -->
+                <div class="modal-body">
                     <div>
-                        <form id="uploadimage" action="" method="post" enctype="multipart/form-data">
-                            <input type="file" name="file" id="file" required placeholder="select image"
-                                   class=""/>
-                            <input type='text' name='titlename' id='titlename' required placeholder="Title name"
-                                   style="height: 30px" class=""/>
-                            <input type="submit" value="Upload" class="btn btn-success btn-sm"/>
-                        </form>
+                        <div>
+                            <form action="" id="uploadimage">
+                                <div class="form-group">
+                                    <label for="titlename">Land title name:</label>
+                                    <input type="text" class="form-control" name="titlename" id="titlename">
+                                </div>
+                                <div class="form-group">
+                                    <label for="owner">Owner:</label>
+                                    <input type="text" class="form-control" name="owner">
+                                </div>
+                                <div class="form-group">
+                                    <label for="file">Scanned copy</label>
+                                    <input type="file" class="form-control" name="file" id="file">
+                                </div>
+                                <button type="submit" class="btn btn alert-info btn-default">Save</button>
+                            </form>
+                        </div>
+                        <!--                        <div>Supported file types: PDF, JPG, JPEG, PNG</div>-->
                     </div>
-                    <div>Supported file types: PDF, JPG, JPEG, PNG</div>
+                </div>
+
+                <!-- Modal footer -->
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-danger" data-dismiss="modal">Close</button>
                 </div>
 
             </div>
-
         </div>
-
     </div>
     <script type="text/javascript" src="./js/jquery-1.7.1.min.js"></script>
     <script type="text/javascript" src="./js/bootstrap.min.js"></script>
@@ -113,9 +143,10 @@ require_once 'functions.php';
                 contentType: false,
                 processData: false,
                 success: function (result) {
-                    // location.reload();
-                    alert(result);
                     $('#uploadimage')[0].reset();
+                    location.reload();
+                    alert(result);
+
                 }
             });
         }));
