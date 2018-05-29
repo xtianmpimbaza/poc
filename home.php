@@ -22,6 +22,7 @@ require_once 'functions.php';
         <div style="margin-top: 20px; padding: 25px 25px; font-size: 16px; color: #555">
             <div id="search">
                 <img id="displayimage" src="" style="width: 850px;height: 480px;margin: -35px 0px 0px -10px;">
+<!--                <img id="" src="http://localhost:8080/ipfs/QmZGqh7ctekogq8iN5dPEMN7xoBXmzzsFuqBp9FgsunzrM" style="width: 850px;height: 480px;margin: -35px 0px 0px -10px;">-->
             </div>
         </div>
         <div class="btn-group text-center" role="group" aria-label="Basic example">
@@ -144,8 +145,9 @@ require_once 'functions.php';
                 processData: false,
                 success: function (result) {
                     $('#uploadimage')[0].reset();
-                    location.reload();
+                    // location.reload();
                     alert(result);
+                    console.log(result);
 
                 }
             });

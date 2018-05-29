@@ -1,7 +1,23 @@
 <?php
 require_once 'functions.php';
+require 'ipfs/IPFS.php';
+use Cloutier\PhpIpfsApi\IPFS;
+
 $funs = new Functions();
 
+// connect to ipfs daemon API server
+$ipfs = new IPFS("localhost", "8080", "5001");
+
+//$hash = $ipfs->add("Hello world");
+//print_r($ipfs->size("QmZGqh7ctekogq8iN5dPEMN7xoBXmzzsFuqBp9FgsunzrM"));
+//print_r($ipfs->id());
+//print_r(''.$hash);
+
+//if (isset($_FILES["file"]["type"]) && isset($_POST['titlename'])) {
+//
+//    $hash = $ipfs->add($_FILES['file']['tmp_name']);
+//    print_r($hash);
+//}
 if (isset($_FILES["file"]["type"]) && isset($_POST['titlename'])) {
 
     $filename = $_FILES["file"]["name"];
