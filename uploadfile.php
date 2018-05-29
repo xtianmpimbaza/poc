@@ -1,6 +1,7 @@
 <?php
 require_once 'functions.php';
 require 'ipfs/IPFS.php';
+
 use Cloutier\PhpIpfsApi\IPFS;
 
 $funs = new Functions();
@@ -8,57 +9,47 @@ $funs = new Functions();
 // connect to ipfs daemon API server
 $ipfs = new IPFS("localhost", "8080", "5001");
 
-//$hash = $ipfs->add("Hello world");
-//print_r($ipfs->size("QmZGqh7ctekogq8iN5dPEMN7xoBXmzzsFuqBp9FgsunzrM"));
-//print_r($ipfs->id());
-//print_r(''.$hash);
-
-//if (isset($_FILES["file"]["type"]) && isset($_POST['titlename'])) {
-//
-//    $hash = $ipfs->add($_FILES['file']['tmp_name']);
-//    print_r($hash);
-//}
 if (isset($_FILES["file"]["type"]) && isset($_POST['titlename'])) {
 
     $filename = $_FILES["file"]["name"];
     $file_basename = substr($filename, 0, strripos($filename, '.')); // get file name
     $file_ext = substr($filename, strripos($filename, '.')); // get file extention
     $filesize = $_FILES["file"]["size"];
-    $title = ''.$_POST['titlename'];
+    $title = '' . $_POST['titlename'];
 
-    $newfilename = md5($file_basename) . $file_ext;
+//    $newfilename = md5($file_basename) . $file_ext;
 
     $validextensions = array("jpeg", "jpg", "png");
     $temporary = explode(".", $filename);
     $file_extension = end($temporary);
 
     if ((($_FILES["file"]["type"] == "image/png") || ($_FILES["file"]["type"] == "image/jpg") || ($_FILES["file"]["type"] == "image/jpeg")
-        ) && ($_FILES["file"]["size"] < 200000)//Approx. 200kb files can be uploaded.
-        && in_array($file_extension, $validextensions)) {
+        ) && in_array($file_extension, $validextensions)) {
         if ($_FILES["file"]["error"] > 0) {
             echo "Return Code: " . $_FILES["file"]["error"] . "<br/><br/>";
         } else {
-            if (file_exists("uploads/" . $newfilename)) {
-                echo $filename . " <span id='invalid'><b>file already exists.</b></span> ";
-            } else {
                 $sourcePath = $_FILES['file']['tmp_name']; // Storing source path of the file in a variable
-                $targetPath = "uploads/" . $newfilename; // Target path where file is to be stored
-                if (move_uploaded_file($sourcePath, $targetPath)){
 
-                    //add to assets
+                $image = $_FILES['file']['tmp_name'];
+                $fo = fopen($_FILES['file']['tmp_name'], "r");
+                $imageContent = fread($fo, filesize($image));
+                $hash = $ipfs->add($imageContent);
 
+                if ($hash != '' && $hash != null) {
                     $address = $funs->listPermissions();
-                    $funs->addAssets($address, $title, $newfilename);
-                    echo "Saved successifully";
+                    $funs->addAssets($address, $title, $hash);
+                    echo "saved";
 //                    echo $funs->getErrors();
-                } else{
-                    echo "An error occured";
+                }else{
+                    echo "error occured, file not saved";
                 }
-            }
+
         }
     } else {
         echo "Invalid file Size or Type";
     }
-}else{echo 'no file';}
+} else {
+    echo 'no file';
+}
 
 ?>

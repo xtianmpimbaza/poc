@@ -27,11 +27,11 @@ class IPFS {
 	public function add ($content) {
 		$ip = $this->gatewayIP;
 		$port = $this->gatewayApiPort;
-
 		$req = $this->curl("http://$ip:$port/api/v0/add?stream-channels=true", $content);
-		$req = json_decode($req, TRUE);
-
-		return $req['Hash'];
+        $value = explode("\n", $req);
+		$toarray =  "[".$value[0]."]";
+        $req = json_decode($toarray, TRUE);
+		return $req[0]['Hash'];
 	}
 
 	public function ls ($hash) {
