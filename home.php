@@ -11,13 +11,25 @@ require_once 'functions.php';
     <link rel="shortcut icon" href="./img/favicon.png" type="image/x-icon"/>
     <link href="./css/global.css" type="text/css" rel="stylesheet"/>
     <link rel="stylesheet" href="./css/style.css" type="text/css">
+    <link href="https://maxcdn.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css" rel="stylesheet">
+<!--    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.1.1/css/bootstrap.min.css" type="text/css">-->
     <link rel="stylesheet" href="./css/bootstrap.min.css" type="text/css">
 </head>
 <body>
 <div class="container-fluid ">
-    <div style="padding: 0px; ">
+    <div style="padding: 0px; " class="">
         <img src="img/header-logo.jpg" alt=""/>
+        <span style="" class="col ">
+            <span class="btn-group " role="group" aria-label="Basic example">
+                <button type="button" class="btn btn-primary" data-toggle="modal" data-target="#addUsersModal"> <i class="fa fa-user"></i> Add users</button>
+                <button type="button" class="btn btn-success" data-toggle="modal" data-target=""><i class="fa fa-edit"></i> Modify
+                </button>
+                <!--                <button type="button" class="btn btn-danger">Deactivate</button>-->
+            </span>
+            <span> <button type="button" class="btn btn-secondary" id="signout"> <i class="fa fa-sign-out"></i>Logut </button></span>
+        </span>
     </div>
+
     <div id="container">
         <div class="left" style="">
             <div style="margin-top: 20px; padding: 25px 25px; font-size: 16px; color: #555">
@@ -27,10 +39,10 @@ require_once 'functions.php';
                 </div>
             </div>
             <div class="btn-group text-center" role="group" aria-label="Basic example">
-                <button type="button" class="btn btn-primary" data-toggle="modal" data-target="#myModal">Add</button>
-                <button type="button" class="btn btn-success" data-toggle="modal" data-target="#modifyModal">Modify
-                </button>
-                <button type="button" class="btn btn-danger">Deactivate</button>
+                <button type="button" class="btn btn-primary" data-toggle="modal" data-target="#myModal"> <i class="fa fa-plus"></i> Add Title</button>
+                <button type="button" class="btn btn-success" data-toggle="modal" data-target="#modifyModal"> <i class="fa fa-edit"></i> Modify</button>
+
+<!--                <button type="button" class="btn btn-danger">Deactivate</button>-->
             </div>
         </div>
         <div class="right">
@@ -98,7 +110,7 @@ require_once 'functions.php';
                                     <label for="file">Scanned copy</label>
                                     <input type="file" class="form-control" name="file" id="file">
                                 </div>
-                                <button type="submit" class="btn btn alert-info btn-default">Save</button>
+                                <button type="submit" class="btn btn btn-success"> <i class="fa fa-save"></i> Save</button>
                             </form>
                         </div>
                         <!--                        <div>Supported file types: PDF, JPG, JPEG, PNG</div>-->
@@ -107,12 +119,60 @@ require_once 'functions.php';
 
                 <!-- Modal footer -->
                 <div class="modal-footer">
-                    <button type="button" class="btn btn-danger" data-dismiss="modal">Close</button>
+                    <button type="button" class="btn btn-danger" data-dismiss="modal"> <i class="fa fa-cancel"></i> Close</button>
                 </div>
 
             </div>
         </div>
     </div>
+     <!-- The Modal -->
+    <div class="modal" id="addUsersModal">
+        <div class="modal-dialog">
+            <div class="modal-content">
+                <!-- Modal Header -->
+                <div class="modal-header">
+                    <h4 class="modal-title">Add a new user</h4>
+                    <button type="button" class="close" data-dismiss="modal">&times;</button>
+                </div>
+
+                <!-- Modal body -->
+                <div class="modal-body">
+                    <div>
+                        <div>
+                            <form action="" id="adduser">
+                                <div class="form-group">
+                                    <label for="username">Name:</label>
+                                    <input type="text" class="form-control" name="username" id="username">
+                                </div>
+                                <div class="form-group">
+                                    <label for="department">Department:</label>
+                                    <input type="text" class="form-control" name="department" id="department">
+                                </div>
+
+                                <div class="form-group">
+                                    <label for="userights">User rights: </label>
+                                    <label class="checkbox-inline"><input type="checkbox" value="" name="admin"> Admin</label>
+                                    <label class="checkbox-inline"><input type="checkbox" value="" name="issue"> Issue</label>
+<!--                                    <label class="checkbox-inline"><input type="checkbox" value=""> Receive</label>-->
+                                    <label class="checkbox-inline"><input type="checkbox" value="" name="connect"> Connect</label>
+                                </div>
+                                <button type="submit" class="btn btn btn-success"> <i class="fa fa-save"></i> Save</button>
+                            </form>
+                        </div>
+                        <!--                        <div>Supported file types: PDF, JPG, JPEG, PNG</div>-->
+                    </div>
+                </div>
+
+                <!-- Modal footer -->
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-danger" data-dismiss="modal"> <i class="fa fa-cancel"></i> Close</button>
+                </div>
+
+            </div>
+        </div>
+    </div>
+
+
     <!-- The Modal -->
     <div class="modal" id="modifyModal">
         <div class="modal-dialog">
@@ -141,7 +201,7 @@ require_once 'functions.php';
                                     <label for="file">Scanned copy</label>
                                     <input type="file" class="form-control" name="file" id="file">
                                 </div>
-                                <button type="submit" class="btn btn alert-info">Save</button>
+                                <button type="submit" class="btn btn btn-success"><i class="fa fa-save"></i> Save</button>
                             </form>
                         </div>
                         <!--                        <div>Supported file types: PDF, JPG, JPEG, PNG</div>-->
@@ -189,6 +249,11 @@ require_once 'functions.php';
                     // console.log(result);
                 }
             });
+        }));
+
+        $("#signout").on('click', (function (e) {
+
+
         }));
     </script>
 </body>
