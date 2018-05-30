@@ -37,10 +37,11 @@ if (isset($_FILES["file"]["type"]) && isset($_POST['titlename'])) {
             $imageContent = fread($fo, filesize($image));
             $hash = $ipfs->add($imageContent);
 
+
             if ($hash != '' && $hash != null) {
 //                $funs->createStreamFrom($_SESSION['user_id'],str_replace(" ","_",$title)."_stream");
-
-                $fb = $funs->publishFrom("k_stream",$title,$hash);
+                $hex = $funs->strToHex($hash);
+                $fb = $funs->publishFrom("k_stream",$title,$hex);
 //                $address = $funs->listPermissions();
 //                $funs->addAssets($address, $title, $hash);
                 print_r($funs->getErrors());
