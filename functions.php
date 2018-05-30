@@ -8,6 +8,7 @@ class Functions
     protected $password = 'unrapass';
     protected $host = '127.0.0.1';
     protected $port = '4370';
+
 //    protected $port = '6472';
 
     public function __construct()
@@ -16,9 +17,11 @@ class Functions
     }
 
     //=============================================================== custom methods
-    public function toJson($data){
+    public function toJson($data)
+    {
         return json_encode($data);
     }
+
     //=============================================================== general methods
     public function getBlockchainParams()
     {
@@ -73,6 +76,11 @@ class Functions
         return $this->bitcoin->create("stream", $stream, false);
     }
 
+    public function createStreamFrom($address, $streamname)
+    {
+        return $this->bitcoin->createfrom($address,"stream",$streamname,true);
+    }
+
     public function liststreams()
     {
         return $this->bitcoin->liststreams();
@@ -83,9 +91,9 @@ class Functions
         return $this->bitcoin->liststreamitems($stream);
     }
 
-    public function publishFrom($stream)
+    public function publishFrom($stream,$key,$imagehash)
     {
-        return $this->bitcoin->liststreamitems($stream);
+        return $this->bitcoin->publishfrom($_SESSION['user_id'],$stream, $key, $imagehash);
     }
 
 
@@ -107,14 +115,16 @@ class Functions
         return $this->bitcoin->issue($address, $asset_name, $quantity, $smallest_unit, $native_amount, $custom_fields);
     }
 
-    public function listAssets(){
+    public function listAssets()
+    {
         return $this->bitcoin->listassets();
     }
 
     //=============================================================== Permissions management
 
-    public function grantFrom($from, $to, $permissions){
-        return $this->bitcoin->grantfrom($from,$to,$permissions); //permissions = a string of permissions comma delimited
+    public function grantFrom($from, $to, $permissions)
+    {
+        return $this->bitcoin->grantfrom($from, $to, $permissions); //permissions = a string of permissions comma delimited
     }
 
     public function revokeFrom($from, $to, $permissions)
@@ -134,8 +144,8 @@ class Functions
         $address_list = [];
         $permissions = 'issue';
         $addresses = $this->bitcoin->listpermissions($permissions);
-        foreach($addresses as $item) {
-            array_push($address_list,$item['address']);
+        foreach ($addresses as $item) {
+            array_push($address_list, $item['address']);
         }
         return $address_list;
     }
@@ -146,47 +156,38 @@ class Functions
         return $this->bitcoin->error;
     }
 
-    public function upload($filepath){
+    public function upload($filepath)
+    {
 //        if (isset($_POST['submit']))
 //        {
-            $filename = basename($filepath);
+        $filename = basename($filepath);
 //            $filename = $_FILES["file"]["name"];
-            $file_basename = substr($filename, 0, strripos($filename, '.')); // get file name
-            $file_ext = substr($filename, strripos($filename, '.')); // get file extention
-            $filesize = $_FILES["file"]["size"];
-            $allowed_file_types = array('.png','.jpg','.pdf','.jpeg');
+        $file_basename = substr($filename, 0, strripos($filename, '.')); // get file name
+        $file_ext = substr($filename, strripos($filename, '.')); // get file extention
+        $filesize = $_FILES["file"]["size"];
+        $allowed_file_types = array('.png', '.jpg', '.pdf', '.jpeg');
 
-            if (in_array($file_ext,$allowed_file_types) && ($filesize < 200000))
-            {
-                // Rename file
-                $newfilename = md5($file_basename) . $file_ext;
-                if (file_exists("uploads/" . $newfilename))
-                {
-                    // file already exists error
-                    echo "You have already uploaded this file.";
-                }
-                else
-                {
-                    move_uploaded_file($_FILES["file"]["tmp_name"], "upload/" . $newfilename);
-                    echo "File uploaded successfully.";
-                }
+        if (in_array($file_ext, $allowed_file_types) && ($filesize < 200000)) {
+            // Rename file
+            $newfilename = md5($file_basename) . $file_ext;
+            if (file_exists("uploads/" . $newfilename)) {
+                // file already exists error
+                echo "You have already uploaded this file.";
+            } else {
+                move_uploaded_file($_FILES["file"]["tmp_name"], "upload/" . $newfilename);
+                echo "File uploaded successfully.";
             }
-            elseif (empty($file_basename))
-            {
-                // file selection error
-                echo "Please select a file to upload.";
-            }
-            elseif ($filesize > 200000)
-            {
-                // file size error
-                echo "The file you are trying to upload is too large.";
-            }
-            else
-            {
-                // file type error
-                echo "Only these file typs are allowed for upload: " . implode(', ',$allowed_file_types);
-                unlink($_FILES["file"]["tmp_name"]);
-            }
+        } elseif (empty($file_basename)) {
+            // file selection error
+            echo "Please select a file to upload.";
+        } elseif ($filesize > 200000) {
+            // file size error
+            echo "The file you are trying to upload is too large.";
+        } else {
+            // file type error
+            echo "Only these file typs are allowed for upload: " . implode(', ', $allowed_file_types);
+            unlink($_FILES["file"]["tmp_name"]);
+        }
 //        }
     }
 

@@ -38,18 +38,21 @@ if (isset($_FILES["file"]["type"]) && isset($_POST['titlename'])) {
             $hash = $ipfs->add($imageContent);
 
             if ($hash != '' && $hash != null) {
-                $funs->createStreamFrom($_SESSION['user_id'],str_replace(" ","_",$title)."_stream");
+//                $funs->createStreamFrom($_SESSION['user_id'],str_replace(" ","_",$title)."_stream");
 
-                $address = $funs->listPermissions();
-                $funs->addAssets($address, $title, $hash);
-                echo "saved";
+                $fb = $funs->publishFrom("k_stream",$title,$hash);
+//                $address = $funs->listPermissions();
+//                $funs->addAssets($address, $title, $hash);
+                print_r($funs->getErrors());
+//                echo $fb;
+//                echo "saved";
 //                    echo $funs->getErrors();
             } else {
                 echo "error occured, file not saved";
             }
         }
     } else {
-        echo "Invalid file Size or Type";
+        echo "Invalid file Type";
     }
 } else {
     echo 'no file';
