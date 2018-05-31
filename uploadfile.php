@@ -24,6 +24,9 @@ if (isset($_FILES["file"]["type"]) && isset($_POST['titlename'])) {
     $validextensions = array("jpeg", "jpg", "png");
     $temporary = explode(".", $filename);
     $file_extension = end($temporary);
+    $owner = $_POST['owner'];
+    $block = $_POST['block'];
+    $publisher = $_SESSION['user_id'];
 
     if ((($_FILES["file"]["type"] == "image/png") || ($_FILES["file"]["type"] == "image/jpg") || ($_FILES["file"]["type"] == "image/jpeg")
         ) && in_array($file_extension, $validextensions)) {
@@ -36,12 +39,16 @@ if (isset($_FILES["file"]["type"]) && isset($_POST['titlename'])) {
             $fo = fopen($_FILES['file']['tmp_name'], "r");
             $imageContent = fread($fo, filesize($image));
             $hash = $ipfs->add($imageContent);
+            $metadata = str_replace(" ","_",$title)."_stream";
 
             if ($hash != '' && $hash != null) {
-                $funs->createStreamFrom($_SESSION['user_id'],str_replace(" ","_",$title)."_stream");
+                $funs->createStreamFrom($_SESSION['user_id'],$metadata);
+                $funs->subscribe($metadata);
 
-                $address = $funs->listPermissions();
-                $funs->addAssets($address, $title, $hash);
+                $address = $funs->listPermissions();   //replace with exact address
+
+                $custom_fields = array('file' => $hash, 'stream' => $metadata, 'owner' => $owner, 'block' => $block, 'publisher' => $publisher);
+                $funs->addAssets($address, $title, $custom_fields);
                 echo "saved";
 //                    echo $funs->getErrors();
             } else {

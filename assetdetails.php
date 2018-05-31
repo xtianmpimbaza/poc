@@ -1,5 +1,17 @@
 <?php
 require_once('./inc/config.php');
+require_once('functions.php');
+$fns = new Functions();
+$id = $_GET['id'];
+
+$asst = $fns->listAssetsById($id);
+$name = $asst[0]['name'];
+$owner = $asst[0]['details']['owner'];
+$block = $asst[0]['details']['block'];
+//$publisher = $asst[0]['details']['publisher'];
+
+//print_r($asst);
+//echo 'not fetching';
 ?>
 <!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN"
         "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
@@ -20,8 +32,11 @@ require_once('./inc/config.php');
         <span style="" class="col ">
             <span class="btn-group " role="group" aria-label="Basic example">
             </span>
+            <span> <button type="button" class="btn btn-secondary" id="home"> <i
+                            class="fa fa-home"></i>Home </button></span>
             <span> <button type="button" class="btn btn-secondary" id="signout"> <i
-                            class="fa fa-sign-out"></i>Logut </button></span>
+                            class="fa fa-sign-out"></i>Logout </button></span>
+
         </span>
     </div>
 
@@ -29,18 +44,28 @@ require_once('./inc/config.php');
         <div class="left" style="">
             <div style="margin-top: 0px;margin-bottom: 15px; padding: 5px 5px; font-size: 16px; color: #555">
                 <div id="search" style="width: 850px;height: 480px;">
-                    <div id="items">
-
-                        loading.........
-                    </div>
+                    <img id="displayimage" class="" src="" style="height: 480px; margin: auto; width: auto;">
                 </div>
             </div>
             <div class="btn-group text-center" role="group" aria-label="Basic example">
+
                 <button type="button" class="btn btn-success" data-toggle="modal" data-target="#modifyModal"><i
                             class="fa fa-edit"></i> Modify
                 </button>
             </div>
         </div>
+        <div class="right">
+            <div id="advertisements">
+                <div class="title">Land Title Updates</div>
+                <div class="content explorer" id="pagexplorer">
+
+
+                </div>
+
+            </div>
+
+        </div>
+
     </div>
 
 
@@ -60,10 +85,16 @@ require_once('./inc/config.php');
                     <div>
                         <div>
                             <form action="" id="uploadimage">
+                                <input type="hidden" class="form-control" name="titlename" id="titlename" value="<?php echo $name; ?>">
                                 <div class="form-group">
-                                    <label for="titlename">Update title</label>
-                                    <input type="" class="form-control" name="titlename" id="titlename">
+                                    <label for="reason">Modification Reason</label>
+                                    <input type="text" class="form-control" name="reason" id="reason">
                                 </div>
+                                <div class="form-group">
+                                    <label for="owner">Owner</label>
+                                    <input type="text" class="form-control" name="owner" value="<?php echo $owner; ?>" id="owner">
+                                </div>
+
                                 <div class="form-group">
                                     <label for="file">Scanned copy</label>
                                     <input type="file" class="form-control" name="file" id="file">
@@ -83,7 +114,7 @@ require_once('./inc/config.php');
                 </div>
 
             </div>
-            <input type="hidden" id="assetissueid" name="assetissueid" value=""/>
+            <input type="hidden" id="assetissueid" name="assetissueid" value="<?php echo $_GET['id']; ?>"/>
         </div>
     </div>
     <script type="text/javascript" src="./js/jquery-1.7.1.min.js"></script>
@@ -103,10 +134,10 @@ require_once('./inc/config.php');
                 url: "loader/pageloader.php",
                 data: {
                     token: "load_stream_items",
-                    stream: "mpimbaza_chris_stream"
+                    asset: $('#assetissueid').val()
                 },
                 success: function (data) {
-                    $('#items').html(data);
+                    $('#pagexplorer').html(data);
                 }
 
             })
@@ -120,26 +151,31 @@ require_once('./inc/config.php');
                     token: "load_image"
                 },
                 success: function (data) {
+                    // console.log()
                     $('#displayimage').attr('src', 'http://localhost:8080/ipfs/' + data);
                 }
 
             })
         }
 
-        function setImage(source, identifier) {
+
+        function setImage(source) {
             console.log(source);
             $('#displayimage').attr('src', 'http://localhost:8080/ipfs/' + source);
-            document.getElementById('assetissueid').value = identifier;
+            // document.getElementById('assetissueid').value = identifier;
 
         }
 
+
         $("form#uploadimage").on('submit', (function (e) {
             e.preventDefault();
+            var formData = new FormData(this);
+            formData.append("asset", $('#assetissueid').val());
             $.ajax({
                 type: "POST",
                 url: 'savetostream.php',
                 enctype: 'multipart/form-data',
-                data: new FormData(this),
+                data: formData,
                 cache: false,
                 contentType: false,
                 processData: false,
@@ -155,6 +191,9 @@ require_once('./inc/config.php');
 
         $("#signout").on('click', (function (e) {
             window.location = "http://localhost/unra/";
+        }));
+        $("#home").on('click', (function (e) {
+            window.location = "http://localhost/unra/home.php";
         }));
 
 

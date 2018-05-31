@@ -16,10 +16,11 @@ if (isset($_FILES["file"]["type"]) && isset($_POST['titlename'])) {
     $filename = $_FILES["file"]["name"];
     $file_basename = substr($filename, 0, strripos($filename, '.')); // get file name
     $file_ext = substr($filename, strripos($filename, '.')); // get file extention
-    $filesize = $_FILES["file"]["size"];
-    $title = '' . $_POST['titlename'];
-
-//    $newfilename = md5($file_basename) . $file_ext;
+//    $filesize = $_FILES["file"]["size"];
+    $title = $_POST['titlename'];
+    $reason = $_POST['reason'];
+    $owner = $_POST['owner'];
+    $issid = $_POST['asset'];
 
     $validextensions = array("jpeg", "jpg", "png");
     $temporary = explode(".", $filename);
@@ -39,15 +40,19 @@ if (isset($_FILES["file"]["type"]) && isset($_POST['titlename'])) {
 
 
             if ($hash != '' && $hash != null) {
-//                $funs->createStreamFrom($_SESSION['user_id'],str_replace(" ","_",$title)."_stream");
-                $hex = $funs->strToHex($hash);
-                $fb = $funs->publishFrom("k_stream",$title,$hex);
-//                $address = $funs->listPermissions();
-//                $funs->addAssets($address, $title, $hash);
-                print_r($funs->getErrors());
-//                echo $fb;
-//                echo "saved";
-//                    echo $funs->getErrors();
+
+                $custom_fields = array('reason' => $reason, 'owner' => $owner, 'file' => $hash);
+                $hex = $funs->strToHex(json_encode($custom_fields));
+
+//                print_r($hex);
+                $str = $funs->listAssetsById($issid)[0]['details']['stream'];
+                $fb = $funs->publishFrom($str, $title, $hex);
+                if ($fb != "" && $fb != null) {
+                    echo "saved";
+                }else{
+                    print_r($funs->getErrors());
+                }
+
             } else {
                 echo "error occured, file not saved";
             }

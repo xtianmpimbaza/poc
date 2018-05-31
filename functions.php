@@ -78,7 +78,7 @@ class Functions
 
     public function createStreamFrom($address, $streamname)
     {
-        return $this->bitcoin->createfrom($address,"stream",$streamname,true);
+        return $this->bitcoin->createfrom($address, "stream", $streamname, true);
     }
 
     public function liststreams()
@@ -86,38 +86,46 @@ class Functions
         return $this->bitcoin->liststreams();
     }
 
+    public function subscribe($idn)
+    {
+        return $this->bitcoin->subscribe($idn);
+    }
+
     public function listStreamItems($stream)
     {
         return $this->bitcoin->liststreamitems($stream);
     }
 
-    public function publishFrom($stream,$key,$imagehash)
+    public function publishFrom($stream, $key, $imagehash)
     {
-        return $this->bitcoin->publishfrom($_SESSION['user_id'],$stream, $key, $imagehash);
+        return $this->bitcoin->publishfrom($_SESSION['user_id'], $stream, $key, $imagehash);
     }
-
 
     public function hashImage($path)
     {
-//        $path = 'myfolder/myimage.png';
         $type = pathinfo($path, PATHINFO_EXTENSION);
         $data = file_get_contents($path);
         $base64 = 'data:image/' . $type . ';base64,' . base64_encode($data);
         return $base64;
     }
 
-    public function addAssets($address, $asset_name, $image)
+    public function addAssets($address, $asset_name, $custom_fields)
     {
         $quantity = 1;
         $smallest_unit = 1;
         $native_amount = 0;
-        $custom_fields = array('file' => $image);
+//        $custom_fields = array('file' => $image, 'stream' => $metadata);
         return $this->bitcoin->issue($address, $asset_name, $quantity, $smallest_unit, $native_amount, $custom_fields);
     }
 
     public function listAssets()
     {
         return $this->bitcoin->listassets();
+    }
+
+    public function listAssetsById($assetid)
+    {
+        return $this->bitcoin->listassets($assetid);
     }
 
     //=============================================================== Permissions management
@@ -190,20 +198,24 @@ class Functions
         }
 //        }
     }
+
 //======================================================================
-    function strToHex($string){
+    function strToHex($string)
+    {
         $hex = '';
-        for ($i=0; $i<strlen($string); $i++){
+        for ($i = 0; $i < strlen($string); $i++) {
             $ord = ord($string[$i]);
             $hexCode = dechex($ord);
-            $hex .= substr('0'.$hexCode, -2);
+            $hex .= substr('0' . $hexCode, -2);
         }
         return strToUpper($hex);
     }
-    function hexToStr($hex){
-        $string='';
-        for ($i=0; $i < strlen($hex)-1; $i+=2){
-            $string .= chr(hexdec($hex[$i].$hex[$i+1]));
+
+    function hexToStr($hex)
+    {
+        $string = '';
+        for ($i = 0; $i < strlen($hex) - 1; $i += 2) {
+            $string .= chr(hexdec($hex[$i] . $hex[$i + 1]));
         }
         return $string;
     }

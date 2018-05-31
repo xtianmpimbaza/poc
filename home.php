@@ -11,6 +11,7 @@ require_once('./inc/config.php');
     <link rel="shortcut icon" href="./img/favicon.png" type="image/x-icon"/>
     <link href="./css/global.css" type="text/css" rel="stylesheet"/>
     <link rel="stylesheet" href="./css/style.css" type="text/css">
+<!--    <link href="./css/font-awesome.min.css" rel="stylesheet">-->
     <link href="https://maxcdn.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css" rel="stylesheet">
     <!--    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.1.1/css/bootstrap.min.css" type="text/css">-->
     <link rel="stylesheet" href="./css/bootstrap.min.css" type="text/css">
@@ -58,11 +59,11 @@ require_once('./inc/config.php');
 
 
                 </div>
-                <div id="" class="" style="width: 100%">
-                    <div class="wrap">
-                        <input type="text" id="q" placeholder="Search for titles" class="container-fluid"/>
-                    </div>
-                </div>
+<!--                <div id="" class="" style="width: 100%">-->
+<!--                    <div class="wrap">-->
+<!--                        <input type="text" id="q" placeholder="Search for titles" class="container-fluid"/>-->
+<!--                    </div>-->
+<!--                </div>-->
             </div>
 
         </div>
@@ -86,6 +87,14 @@ require_once('./inc/config.php');
                                 <div class="form-group">
                                     <label for="titlename">Land title name:</label>
                                     <input type="text" class="form-control" name="titlename" id="titlename">
+                                </div>
+                                <div class="form-group">
+                                    <label for="owner">Land owner:</label>
+                                    <input type="text" class="form-control" name="owner" id="owner">
+                                </div>
+                                <div class="form-group">
+                                    <label for="titlename">Block number:</label>
+                                    <input type="text" class="form-control" name="block" id="block">
                                 </div>
 
                                 <div class="form-group">
@@ -177,7 +186,7 @@ require_once('./inc/config.php');
                 <div class="modal-body">
                     <div>
                         <div>
-                            <form action="" id="uploadimage">
+                            <form action="" id="">
                                 <div class="form-group text-hide">
                                     <!--                                    <label for="">Land title name:</label>-->
                                     <input type="hidden" class="form-control" name="" id="titlename">
@@ -211,8 +220,8 @@ require_once('./inc/config.php');
         $(document).ready(function () {
             loadImage();
             loadExplorer();
-            var def = $("#defaultimage").val();
-            setImage(def);
+            // var def = $("#defaultimage").val();
+            // setImage(def);
             loadissueid();
         });
 
@@ -281,7 +290,6 @@ require_once('./inc/config.php');
                         location.reload();
                     }
                     alert(result);
-                    // console.log(result);
                 }
             });
         }));

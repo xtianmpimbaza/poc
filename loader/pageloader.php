@@ -36,26 +36,32 @@ if (isset($_POST['token'])) {
             }
         }
     } elseif ($token == "load_stream_items") {
-        $stream = $_POST['stream'];
-        $res = $funs->listStreamItems($stream);
+
+        $issid = $_POST['asset'];
+        $str = $funs->listAssetsById($issid)[0]['details']['stream'];
+        $res = $funs->listStreamItems($str);
         ?>
         <div class="item">
             <table class="col-lg-12">
                 <th class="bg bg-warning container">
-                Items
+                    Updates
                 </th>
-                <tr>
-                    <?php
-                    if (!empty($res)) {
-                        $res = array_reverse($res);
 
-                        foreach ($res as $item) {
-                            echo "<td> stream item </td>";
-                        }
+                <?php
+                if (!empty($res)) {
+                    $res = array_reverse($res);
 
+                    foreach ($res as $item) {
+                        $it = $funs->hexToStr($item['data']);
+                        ?>
+                        <tr>
+                            <td><a href="#" onclick="setImage('<?php echo $it; ?>')"><?php echo $it; ?></a></td>
+                        </tr>
+                        <?php
                     }
-                    ?>
-                </tr>
+                }
+                ?>
+
             </table>
         </div>
         <?php

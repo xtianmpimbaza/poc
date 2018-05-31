@@ -20,7 +20,7 @@ h1 { margin: 10px 0; padding: 10px 0; border-bottom: 1px solid #ddd; font-size: 
 
 #container .left { margin-left: 20px; float: left; border-radius:6px; height:500px; border: solid 3px #70b244 !important; }
 
-#advertisements {background-color: #fff; border: #1b1e21 thin solid; position: fixed; margin-top: -25px; right: 20px; border-radius: 6px; padding: 10px 10px 10px 10px; font: 11px Tahoma, Geneva, sans-serif; color: #333; line-height: 16px; }
+#advertisements {background-color: #fff; border: #1b1e21 thin solid; position: fixed; right: 20px; border-radius: 6px; padding: 10px 10px 10px 10px; font: 11px Tahoma, Geneva, sans-serif; color: #333; line-height: 16px; }
 #advertisements a { color: #3b5998; }
 /*#advertisements span { color: #777; }*/
 #advertisements .item { margin-top: 2px; padding: 10px;  background-color: #eeeeee;}
