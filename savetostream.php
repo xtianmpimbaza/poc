@@ -1,12 +1,13 @@
 <?php
 session_start();
-$_SESSION["user_id"] = "1aCr9dnyrNS6etJfyBroFaTV95j5hXsiaqVhzk";
+//$_SESSION["user_id"] = "1aCr9dnyrNS6etJfyBroFaTV95j5hXsiaqVhzk";
 require_once 'functions.php';
 require 'ipfs/IPFS.php';
 
 use Cloutier\PhpIpfsApi\IPFS;
 
 $funs = new Functions();
+
 
 // connect to ipfs daemon API server
 $ipfs = new IPFS("localhost", "8080", "5001");
@@ -21,6 +22,7 @@ if (isset($_FILES["file"]["type"]) && isset($_POST['titlename'])) {
     $reason = $_POST['reason'];
     $owner = $_POST['owner'];
     $issid = $_POST['asset'];
+    $publisher = $_SESSION['user_id'];
 
     $validextensions = array("jpeg", "jpg", "png");
     $temporary = explode(".", $filename);
@@ -46,11 +48,14 @@ if (isset($_FILES["file"]["type"]) && isset($_POST['titlename'])) {
 
 //                print_r($hex);
                 $str = $funs->listAssetsById($issid)[0]['details']['stream'];
-                $fb = $funs->publishFrom($str, $title, $hex);
-                if ($fb != "" && $fb != null) {
-                    echo "saved";
+                $fb = $funs->publishFrom($publisher, $str, $title, $hex);
+
+                $errors = $funs->getErrors();
+
+                if ($errors != "" && $errors != null) {
+                    echo $funs->getErrors();
                 }else{
-                    print_r($funs->getErrors());
+                    echo "saved";
                 }
 
             } else {

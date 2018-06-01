@@ -54,9 +54,9 @@ class Functions
         return $this->bitcoin->getaddresses();
     }
 
-    public function getNewAddresses()
+    public function getNewAddress()
     {
-        return $this->bitcoin->getnewaddresses();
+        return $this->bitcoin->getnewaddress();
     }
 
     public function getUploadAsset()    //----------- not implemented
@@ -96,9 +96,9 @@ class Functions
         return $this->bitcoin->liststreamitems($stream);
     }
 
-    public function publishFrom($stream, $key, $imagehash)
+    public function publishFrom($pub, $stream, $key, $hex)
     {
-        return $this->bitcoin->publishfrom($_SESSION['user_id'], $stream, $key, $imagehash);
+        return $this->bitcoin->publishfrom($pub, $stream, $key, $hex);
     }
 
     public function hashImage($path)

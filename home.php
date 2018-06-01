@@ -1,6 +1,10 @@
 <?php
+session_start();
 require_once('./inc/config.php');
-//require_once 'functions.php';
+//print_r($_SESSION['user_id']);
+if (!isset($_SESSION['user_id'])){
+    header('Location: index.php');
+}
 ?>
 <!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN"
         "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
@@ -11,10 +15,11 @@ require_once('./inc/config.php');
     <link rel="shortcut icon" href="./img/favicon.png" type="image/x-icon"/>
     <link href="./css/global.css" type="text/css" rel="stylesheet"/>
     <link rel="stylesheet" href="./css/style.css" type="text/css">
-<!--    <link href="./css/font-awesome.min.css" rel="stylesheet">-->
-    <link href="https://maxcdn.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css" rel="stylesheet">
-    <!--    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.1.1/css/bootstrap.min.css" type="text/css">-->
-    <link rel="stylesheet" href="./css/bootstrap.min.css" type="text/css">
+
+    <link href="vendor/bootstrap/css/bootstrap.min.css" rel="stylesheet">
+    <link href="vendor/font-awesome/css/font-awesome.min.css" rel="stylesheet">
+    <link href="vendor/devicons/css/devicons.min.css" rel="stylesheet">
+    <link href="vendor/simple-line-icons/css/simple-line-icons.css" rel="stylesheet">
 </head>
 <body>
 <div class="container-fluid ">
@@ -27,8 +32,8 @@ require_once('./inc/config.php');
 
                 <!--                <button type="button" class="btn btn-danger">Deactivate</button>-->
             </span>
-            <span> <button type="button" class="btn btn-secondary" id="signout"> <i
-                            class="fa fa-sign-out"></i>Logut </button></span>
+            <span> <button type="button" class="btn btn-secondary" id="logout"> <i
+                            class="fa fa-sign-out"></i>Logout </button></span>
         </span>
     </div>
 
@@ -37,7 +42,6 @@ require_once('./inc/config.php');
             <div style="margin-top: 0px;margin-bottom: 15px; padding: 5px 5px; font-size: 16px; color: #555">
                 <div id="search" style="width: 850px;height: 480px;">
                     <img id="displayimage" class="" src="" style="height: 480px; margin: auto; width: auto;">
-                    <!--                    <img id="" src="http://localhost:8080/ipfs/QmZGqh7ctekogq8iN5dPEMN7xoBXmzzsFuqBp9FgsunzrM" style="height: 480px; margin: fill; width: auto;">-->
                 </div>
             </div>
             <div class="btn-group text-center" role="group" aria-label="Basic example">
@@ -48,6 +52,7 @@ require_once('./inc/config.php');
                 <button type="button" class="btn btn-success" id="viewdetails"><i
                             class="fa fa-edit"></i> Modify
                 </button>
+                <span style="margin-left: 12px; font-weight: bold; color: #002752;" id="feedback"> </span>
 
                 <!--                <button type="button" class="btn btn-danger">Deactivate</button>-->
             </div>
@@ -57,13 +62,7 @@ require_once('./inc/config.php');
                 <div class="title">Block Explorer</div>
                 <div class="content explorer" id="pagexplorer">
 
-
                 </div>
-<!--                <div id="" class="" style="width: 100%">-->
-<!--                    <div class="wrap">-->
-<!--                        <input type="text" id="q" placeholder="Search for titles" class="container-fluid"/>-->
-<!--                    </div>-->
-<!--                </div>-->
             </div>
 
         </div>
@@ -213,9 +212,12 @@ require_once('./inc/config.php');
             <input type="hidden" id="assetissueid" name="assetissueid" value=""/>
         </div>
     </div>
-    <script type="text/javascript" src="./js/jquery-1.7.1.min.js"></script>
-    <script type="text/javascript" src="./js/bootstrap.min.js"></script>
-    <script type="text/javascript" src="./js/cufon-yui.js"></script>
+
+    <script src="vendor/jquery/jquery.min.js"></script>
+    <script src="vendor/bootstrap/js/bootstrap.bundle.min.js"></script>
+    <!-- Plugin JavaScript -->
+    <script src="vendor/jquery-easing/jquery.easing.min.js"></script>
+
     <script type="text/javascript">
         $(document).ready(function () {
             loadImage();
@@ -285,17 +287,38 @@ require_once('./inc/config.php');
                 contentType: false,
                 processData: false,
                 success: function (result) {
-                    $('#uploadimage')[0].reset();
-                    if (result === "saved") {
-                        location.reload();
-                    }
-                    alert(result);
+                    $('#myModal').modal('toggle');
+                    $('#feedback').text(result);
+                    loadExplorer();
+                    loadImage();
+                    loadissueid();
                 }
             });
         }));
 
-        $("#signout").on('click', (function (e) {
-            window.location = "http://localhost/unra/";
+        $("form#adduser").on('submit', (function (e) {
+            e.preventDefault();
+            $.ajax({
+                type: "POST",
+                url: 'saveuser.php',
+                enctype: 'multipart/form-data',
+                data: new FormData(this),
+                cache: false,
+                contentType: false,
+                processData: false,
+                success: function (result) {
+                    $('#addUsersModal').modal('toggle');
+                    $('#feedback').text(result);
+                    loadExplorer();
+                    loadImage();
+                    loadissueid();
+                }
+            });
+        }));
+
+
+        $("#logout").on('click', (function (e) {
+            window.location = "http://localhost/unra/logout.php";
         }));
         $("#viewdetails").on('click', (function (e) {
             var isid = document.getElementById('assetissueid').value;

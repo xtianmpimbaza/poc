@@ -2,16 +2,19 @@
 require_once('./inc/config.php');
 require_once('functions.php');
 $fns = new Functions();
-$id = $_GET['id'];
 
+//if (isset($_POST['logout'])){
+//    unset($_SESSION["user_id"]);
+//    echo 'logeed out';
+//    header('Location: localhost/unra/');
+//}
+
+$id = $_GET['id'];
 $asst = $fns->listAssetsById($id);
 $name = $asst[0]['name'];
 $owner = $asst[0]['details']['owner'];
 $block = $asst[0]['details']['block'];
-//$publisher = $asst[0]['details']['publisher'];
 
-//print_r($asst);
-//echo 'not fetching';
 ?>
 <!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN"
         "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
@@ -22,8 +25,10 @@ $block = $asst[0]['details']['block'];
     <link rel="shortcut icon" href="./img/favicon.png" type="image/x-icon"/>
     <link href="./css/global.css" type="text/css" rel="stylesheet"/>
     <link rel="stylesheet" href="./css/style.css" type="text/css">
-    <link href="https://maxcdn.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css" rel="stylesheet">
-    <link rel="stylesheet" href="./css/bootstrap.min.css" type="text/css">
+    <link href="vendor/bootstrap/css/bootstrap.min.css" rel="stylesheet">
+    <link href="vendor/font-awesome/css/font-awesome.min.css" rel="stylesheet">
+    <link href="vendor/devicons/css/devicons.min.css" rel="stylesheet">
+    <link href="vendor/simple-line-icons/css/simple-line-icons.css" rel="stylesheet">
 </head>
 <body>
 <div class="container-fluid ">
@@ -34,7 +39,7 @@ $block = $asst[0]['details']['block'];
             </span>
             <span> <button type="button" class="btn btn-secondary" id="home"> <i
                             class="fa fa-home"></i>Home </button></span>
-            <span> <button type="button" class="btn btn-secondary" id="signout"> <i
+            <span> <button type="button" class="btn btn-secondary" id="logout"> <i
                             class="fa fa-sign-out"></i>Logout </button></span>
 
         </span>
@@ -51,7 +56,7 @@ $block = $asst[0]['details']['block'];
 
                 <button type="button" class="btn btn-success" data-toggle="modal" data-target="#modifyModal"><i
                             class="fa fa-edit"></i> Modify
-                </button>
+                </button> <span style="margin-left: 12px; font-weight: bold; color: #002752;" id="feedback">  </span>
             </div>
         </div>
         <div class="right">
@@ -59,15 +64,11 @@ $block = $asst[0]['details']['block'];
                 <div class="title">Land Title Updates</div>
                 <div class="content explorer" id="pagexplorer">
 
-
                 </div>
-
             </div>
-
         </div>
 
     </div>
-
 
     <!-- The Modal -->
     <div class="modal" id="modifyModal">
@@ -117,9 +118,13 @@ $block = $asst[0]['details']['block'];
             <input type="hidden" id="assetissueid" name="assetissueid" value="<?php echo $_GET['id']; ?>"/>
         </div>
     </div>
-    <script type="text/javascript" src="./js/jquery-1.7.1.min.js"></script>
-    <script type="text/javascript" src="./js/bootstrap.min.js"></script>
-    <script type="text/javascript" src="./js/cufon-yui.js"></script>
+
+    <script src="vendor/jquery/jquery.min.js"></script>
+    <script src="vendor/bootstrap/js/bootstrap.bundle.min.js"></script>
+
+    <!-- Plugin JavaScript -->
+    <script src="vendor/jquery-easing/jquery.easing.min.js"></script>
+
     <script type="text/javascript">
         $(document).ready(function () {
             // loadImage();
@@ -180,17 +185,16 @@ $block = $asst[0]['details']['block'];
                 contentType: false,
                 processData: false,
                 success: function (result) {
+                    $('#modifyModal').modal('toggle');
                     $('#uploadimage')[0].reset();
-                    if (result === "saved") {
-                        location.reload();
-                    }
-                    alert(result);
+                    $('#feedback').text(result);
+                    loadExplorer();
                 }
             });
         }));
 
-        $("#signout").on('click', (function (e) {
-            window.location = "http://localhost/unra/";
+        $("#logout").on('click', (function (e) {
+            window.location = "http://localhost/unra/logout.php";
         }));
         $("#home").on('click', (function (e) {
             window.location = "http://localhost/unra/home.php";

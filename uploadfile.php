@@ -1,6 +1,6 @@
 <?php
 session_start();
-$_SESSION["user_id"] = "1aCr9dnyrNS6etJfyBroFaTV95j5hXsiaqVhzk";
+//$_SESSION["user_id"] = "1aCr9dnyrNS6etJfyBroFaTV95j5hXsiaqVhzk";
 require_once 'functions.php';
 require 'ipfs/IPFS.php';
 
@@ -39,20 +39,25 @@ if (isset($_FILES["file"]["type"]) && isset($_POST['titlename'])) {
             $fo = fopen($_FILES['file']['tmp_name'], "r");
             $imageContent = fread($fo, filesize($image));
             $hash = $ipfs->add($imageContent);
-            $metadata = str_replace(" ","_",$title)."_stream";
+            $metadata = str_replace(" ", "_", $title) . "_stream";
 
             if ($hash != '' && $hash != null) {
-                $funs->createStreamFrom($_SESSION['user_id'],$metadata);
+                $funs->createStreamFrom($_SESSION['user_id'], $metadata);
                 $funs->subscribe($metadata);
 
                 $address = $funs->listPermissions();   //replace with exact address
 
                 $custom_fields = array('file' => $hash, 'stream' => $metadata, 'owner' => $owner, 'block' => $block, 'publisher' => $publisher);
                 $funs->addAssets($address, $title, $custom_fields);
-                echo "saved";
-//                    echo $funs->getErrors();
+
+                $errors = $funs->getErrors();
+                if ($errors != "" && $errors != null) {
+                    echo $funs->getErrors();
+                } else {
+                    echo "User saved successifully";
+                }
             } else {
-                echo "error occured, file not saved";
+                echo "Error occured, file not saved";
             }
         }
     } else {

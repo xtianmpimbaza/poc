@@ -26,12 +26,19 @@ if (isset($_POST['token'])) {
 
             <?php
             foreach ($assets as $item) {
+//                $toarray =  "[".item."]";
 
                 ?>
                 <div class="item">
                     <strong><a href="#"
                                onclick="setImage('<?php echo $item['details']['file']; ?>', '<?php echo $item['issuetxid']; ?>')"><?php echo $item['details']['file']; ?></a></strong><br/>
+<!--                    <br>-->
+<!--                    <span style="padding-left: 4px;">Name : --><?php //echo $item['name'] ; ?><!--</span><br>-->
+<!--                    <span style="padding-left: 4px;">Land owner:      --><?php //echo $item['details']['owner'] ; ?><!--</span><br>-->
+<!--                    <span style="padding-left: 4px;">Block number:      --><?php //echo $item['details']['block'] ; ?><!--</span><br>-->
+<!--                    <span style="padding-left: 4px;">Publisher:      --><?php //echo $item['details']['publisher'] ; ?><!--</span><br>-->
                 </div>
+
                 <?php
             }
         }
@@ -41,11 +48,10 @@ if (isset($_POST['token'])) {
         $str = $funs->listAssetsById($issid)[0]['details']['stream'];
         $res = $funs->listStreamItems($str);
         ?>
-        <div class="item">
-            <table class="col-lg-12">
-                <th class="bg bg-warning container">
+
+                <div class="bg bg-warning container" style="padding: 4px; font-weight: bold;">
                     Updates
-                </th>
+                </div>
 
                 <?php
                 if (!empty($res)) {
@@ -53,17 +59,22 @@ if (isset($_POST['token'])) {
 
                     foreach ($res as $item) {
                         $it = $funs->hexToStr($item['data']);
+                        $toarray =  "[".$it."]";
+                        $dec = json_decode($toarray,TRUE)[0];
+
                         ?>
-                        <tr>
-                            <td><a href="#" onclick="setImage('<?php echo $it; ?>')"><?php echo $it; ?></a></td>
-                        </tr>
+                        <div class="item">
+                            <strong><a href="#" onclick="setImage('<?php echo $dec['file']; ?>')"><?php echo $dec['file'] ; ?></a></strong>
+                            <br>
+                            <span style="padding-left: 4px;">Land owner : <?php echo $dec['owner'] ; ?></span><br>
+                            <span style="padding-left: 4px;">Reason:      <?php echo $dec['reason'] ; ?></span><br>
+                        </div>
                         <?php
                     }
                 }
                 ?>
 
-            </table>
-        </div>
+
         <?php
     }
 
