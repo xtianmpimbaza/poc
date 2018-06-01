@@ -1,6 +1,8 @@
 <?php
+session_start();
 require_once '../functions.php';
 $funs = new Functions();
+$usr = $_SESSION['user_id'];
 
 if (isset($_POST['token'])) {
     $token = $_POST['token'];
@@ -16,6 +18,15 @@ if (isset($_POST['token'])) {
             $assets = array_reverse($assets);
             echo $assets[0]['issuetxid'];
         }
+    } elseif ($token == "grant_admin_rights") {
+        $funs->grantFrom($usr, $_POST['userid'], "admin,issue,receive,create,send");
+        $errors = $funs->getErrors();
+        if ($errors != "" && $errors != null) {
+            echo $funs->getErrors();
+        } else {
+            echo "Admin rights granted";
+        }
+
     } elseif ($token == "load_explorer") {
 
         if (!empty($assets)) {
@@ -32,11 +43,15 @@ if (isset($_POST['token'])) {
                 <div class="item">
                     <strong><a href="#"
                                onclick="setImage('<?php echo $item['details']['file']; ?>', '<?php echo $item['issuetxid']; ?>')"><?php echo $item['details']['file']; ?></a></strong><br/>
-<!--                    <br>-->
-<!--                    <span style="padding-left: 4px;">Name : --><?php //echo $item['name'] ; ?><!--</span><br>-->
-<!--                    <span style="padding-left: 4px;">Land owner:      --><?php //echo $item['details']['owner'] ; ?><!--</span><br>-->
-<!--                    <span style="padding-left: 4px;">Block number:      --><?php //echo $item['details']['block'] ; ?><!--</span><br>-->
-<!--                    <span style="padding-left: 4px;">Publisher:      --><?php //echo $item['details']['publisher'] ; ?><!--</span><br>-->
+                    <!--                    <br>-->
+                    <!--                    <span style="padding-left: 4px;">Name : -->
+                    <?php //echo $item['name'] ; ?><!--</span><br>-->
+                    <!--                    <span style="padding-left: 4px;">Land owner:      -->
+                    <?php //echo $item['details']['owner'] ; ?><!--</span><br>-->
+                    <!--                    <span style="padding-left: 4px;">Block number:      -->
+                    <?php //echo $item['details']['block'] ; ?><!--</span><br>-->
+                    <!--                    <span style="padding-left: 4px;">Publisher:      -->
+                    <?php //echo $item['details']['publisher'] ; ?><!--</span><br>-->
                 </div>
 
                 <?php
@@ -49,30 +64,31 @@ if (isset($_POST['token'])) {
         $res = $funs->listStreamItems($str);
         ?>
 
-                <div class="bg bg-warning container" style="padding: 4px; font-weight: bold;">
-                    Updates
-                </div>
+        <div class="bg bg-warning container" style="padding: 4px; font-weight: bold;">
+            Updates
+        </div>
 
-                <?php
-                if (!empty($res)) {
-                    $res = array_reverse($res);
+        <?php
+        if (!empty($res)) {
+            $res = array_reverse($res);
 
-                    foreach ($res as $item) {
-                        $it = $funs->hexToStr($item['data']);
-                        $toarray =  "[".$it."]";
-                        $dec = json_decode($toarray,TRUE)[0];
+            foreach ($res as $item) {
+                $it = $funs->hexToStr($item['data']);
+                $toarray = "[" . $it . "]";
+                $dec = json_decode($toarray, TRUE)[0];
 
-                        ?>
-                        <div class="item">
-                            <strong><a href="#" onclick="setImage('<?php echo $dec['file']; ?>')"><?php echo $dec['file'] ; ?></a></strong>
-                            <br>
-                            <span style="padding-left: 4px;">Land owner : <?php echo $dec['owner'] ; ?></span><br>
-                            <span style="padding-left: 4px;">Reason:      <?php echo $dec['reason'] ; ?></span><br>
-                        </div>
-                        <?php
-                    }
-                }
                 ?>
+                <div class="item">
+                    <strong><a href="#"
+                               onclick="setImage('<?php echo $dec['file']; ?>')"><?php echo $dec['file']; ?></a></strong>
+                    <br>
+                    <span style="padding-left: 4px;">Land owner : <?php echo $dec['owner']; ?></span><br>
+                    <span style="padding-left: 4px;">Reason: <?php echo $dec['reason']; ?></span><br>
+                </div>
+                <?php
+            }
+        }
+        ?>
 
 
         <?php

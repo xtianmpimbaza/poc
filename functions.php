@@ -4,11 +4,15 @@ require_once 'easybitcoin.php';
 class Functions
 {
     protected $bitcoin;
-    protected $username = 'unra';
-    protected $password = 'unrapass';
+    protected $username = 'demochain';
+    protected $password = 'demochain';
     protected $host = '127.0.0.1';
-    protected $port = '4370';
-
+    protected $port = '4276';
+//protected $bitcoin;
+//    protected $username = 'unra';
+//    protected $password = 'unrapass';
+//    protected $host = '127.0.0.1';
+//    protected $port = '4370';
 //    protected $port = '6472';
 
     public function __construct()
@@ -143,6 +147,13 @@ class Functions
     public function listPermissions()
     {
         $permissions = 'issue';
+        $addresses = $this->bitcoin->listpermissions($permissions);
+        return $addresses[0]['address'];
+    }
+
+    public function getInitialAdmin()
+    {
+        $permissions = 'mine';
         $addresses = $this->bitcoin->listpermissions($permissions);
         return $addresses[0]['address'];
     }

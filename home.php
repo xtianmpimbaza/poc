@@ -34,7 +34,9 @@ if (!isset($_SESSION['user_id'])){
             </span>
             <span> <button type="button" class="btn btn-secondary" id="logout"> <i
                             class="fa fa-sign-out"></i>Logout </button></span>
+            <span> <a href="users.php">View Users</a></span>
         </span>
+        <span class="pull-right bg bg-warning" style="margin-right: 10%; font-weight: bold; margin-top: 20px; padding: 5px"><?php echo "User: ".$_SESSION['user'];?></span>
     </div>
 
     <div id="container">
@@ -141,16 +143,6 @@ if (!isset($_SESSION['user_id'])){
                                     <input type="password" class="form-control" name="password" id="password">
                                 </div>
 
-                                <div class="form-group">
-                                    <label for="userights">User rights: </label>
-                                    <label class="checkbox-inline"><input type="checkbox" value="" name="admin">
-                                        Admin</label>
-                                    <label class="checkbox-inline"><input type="checkbox" value="" name="issue">
-                                        Issue</label>
-                                    <!--                                    <label class="checkbox-inline"><input type="checkbox" value=""> Receive</label>-->
-                                    <label class="checkbox-inline"><input type="checkbox" value="" name="connect">
-                                        Connect</label>
-                                </div>
                                 <button type="submit" class="btn btn btn-success"><i class="fa fa-save"></i> Save
                                 </button>
                             </form>

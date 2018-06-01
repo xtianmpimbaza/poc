@@ -43,18 +43,27 @@ if (isset($_FILES["file"]["type"]) && isset($_POST['titlename'])) {
 
             if ($hash != '' && $hash != null) {
                 $funs->createStreamFrom($_SESSION['user_id'], $metadata);
-                $funs->subscribe($metadata);
 
-                $address = $funs->listPermissions();   //replace with exact address
+
+//                $address = $funs->listPermissions();   //replace with exact address
+                $address = $_SESSION['user_id'];
 
                 $custom_fields = array('file' => $hash, 'stream' => $metadata, 'owner' => $owner, 'block' => $block, 'publisher' => $publisher);
-                $funs->addAssets($address, $title, $custom_fields);
+
 
                 $errors = $funs->getErrors();
                 if ($errors != "" && $errors != null) {
                     echo $funs->getErrors();
                 } else {
-                    echo "User saved successifully";
+                    $funs->subscribe($metadata);
+                    $funs->addAssets($address, $title, $custom_fields);
+
+                    $err = $funs->getErrors();
+                    if ($err != "" && $err != null) {
+                        echo $funs->getErrors();
+                    } else {
+                        echo "Title saved successifully";
+                    }
                 }
             } else {
                 echo "Error occured, file not saved";

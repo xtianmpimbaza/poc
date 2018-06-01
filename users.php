@@ -1,19 +1,13 @@
 <?php
 require_once('./inc/config.php');
 require_once('functions.php');
-$fns = new Functions();
+$funs = new Functions();
+$users = $funs->listStreamItems("users");
 
-//if (isset($_POST['logout'])){
-//    unset($_SESSION["user_id"]);
-//    echo 'logeed out';
-//    header('Location: localhost/unra/');
-//}
-
-$id = $_GET['id'];
-$asst = $fns->listAssetsById($id);
-$name = $asst[0]['name'];
-$owner = $asst[0]['details']['owner'];
-$block = $asst[0]['details']['block'];
+//$asst = $fns->listAssetsById($id);
+//$name = $asst[0]['name'];
+//$owner = $asst[0]['details']['owner'];
+//$block = $asst[0]['details']['block'];
 
 ?>
 <!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN"
@@ -41,30 +35,48 @@ $block = $asst[0]['details']['block'];
                             class="fa fa-home"></i>Home </button></span>
             <span> <button type="button" class="btn btn-secondary" id="logout"> <i
                             class="fa fa-sign-out"></i>Logout </button></span>
+<!--            background-color: rgba(10,253,94,0.28)-->
+            <span style="margin-left: 12px; font-weight: bold; padding: 10px 5px; color: #002752; " id="feedback">  </span>
         </span>
     </div>
 
     <div id="container">
-        <div class="left" style="">
-            <div style="margin-top: 0px;margin-bottom: 15px; padding: 5px 5px; font-size: 16px; color: #555">
-                <div id="search" style="width: 850px;height: 480px;">
-                    <img id="displayimage" class="" src="" style="height: 480px; margin: auto; width: auto;">
-                </div>
-            </div>
-            <div class="btn-group text-center" role="group" aria-label="Basic example">
 
-                <button type="button" class="btn btn-success" data-toggle="modal" data-target="#modifyModal"><i
-                            class="fa fa-edit"></i> Modify
-                </button> <span style="margin-left: 12px; font-weight: bold; color: #002752;" id="feedback">  </span>
-            </div>
-        </div>
-        <div class="right">
-            <div id="advertisements">
-                <div class="title">Land Title Updates</div>
-                <div class="content explorer" id="pagexplorer">
+        <div>
 
-                </div>
-            </div>
+            <table class="table table-bordered">
+                <thead>
+                <th>Username</th>
+                <th>Address</th>
+                <th>Action</th>
+                </thead>
+                <?php
+                if (!empty($users)) {
+                    foreach ($users as $user) {
+                        $it = $funs->hexToStr($user['data']);
+
+                        $toarray = "[" . $it . "]";
+                        $dec = json_decode($toarray, TRUE)[0];
+
+                        $uname = $dec['username'];
+                        $ad = $dec['user_address'];
+
+                        ?>
+                        <tr>
+                            <td><?php echo $uname; ?></td>
+                            <td><?php echo $ad; ?></td>
+                            <td><a href="#" onclick="makeAdmin('<?php echo $ad; ?>')">
+                                    <button class="btn btn-primary btn-sm">Make admin</button>
+                                </a></td>
+                        </tr>
+                        <?php
+
+                    }
+                } else {
+                    echo "Error in connection";
+                }
+                ?>
+            </table>
         </div>
 
     </div>
@@ -85,14 +97,16 @@ $block = $asst[0]['details']['block'];
                     <div>
                         <div>
                             <form action="" id="uploadimage">
-                                <input type="hidden" class="form-control" name="titlename" id="titlename" value="<?php echo $name; ?>">
+                                <input type="hidden" class="form-control" name="titlename" id="titlename"
+                                       value="<?php echo $name; ?>">
                                 <div class="form-group">
                                     <label for="reason">Modification Reason</label>
                                     <input type="text" class="form-control" name="reason" id="reason">
                                 </div>
                                 <div class="form-group">
                                     <label for="owner">Owner</label>
-                                    <input type="text" class="form-control" name="owner" value="<?php echo $owner; ?>" id="owner">
+                                    <input type="text" class="form-control" name="owner" value="<?php echo $owner; ?>"
+                                           id="owner">
                                 </div>
 
                                 <div class="form-group">
@@ -114,7 +128,6 @@ $block = $asst[0]['details']['block'];
                 </div>
 
             </div>
-            <input type="hidden" id="assetissueid" name="assetissueid" value="<?php echo $_GET['id']; ?>"/>
         </div>
     </div>
 
@@ -125,72 +138,29 @@ $block = $asst[0]['details']['block'];
     <script src="vendor/jquery-easing/jquery.easing.min.js"></script>
 
     <script type="text/javascript">
-        $(document).ready(function () {
+        // $(document).ready(function () {
             // loadImage();
-            loadExplorer();
+            // loadExplorer();
             // var def = $("#defaultimage").val();
             // setImage(def);
-        });
+        // });
 
-        function loadExplorer() {
+        function makeAdmin(address) {
+            // console.log(adress);
             $.ajax({
                 type: "POST",
                 url: "loader/pageloader.php",
                 data: {
-                    token: "load_stream_items",
-                    asset: $('#assetissueid').val()
+                    token: "grant_admin_rights",
+                    userid: address
                 },
-                success: function (data) {
-                    $('#pagexplorer').html(data);
-                }
-
-            })
-        }
-
-        function loadImage() {
-            $.ajax({
-                type: "POST",
-                url: "loader/pageloader.php",
-                data: {
-                    token: "load_image"
-                },
-                success: function (data) {
-                    // console.log()
-                    $('#displayimage').attr('src', 'http://localhost:8080/ipfs/' + data);
-                }
-
-            })
-        }
-
-
-        function setImage(source) {
-            console.log(source);
-            $('#displayimage').attr('src', 'http://localhost:8080/ipfs/' + source);
-            // document.getElementById('assetissueid').value = identifier;
-
-        }
-
-
-        $("form#uploadimage").on('submit', (function (e) {
-            e.preventDefault();
-            var formData = new FormData(this);
-            formData.append("asset", $('#assetissueid').val());
-            $.ajax({
-                type: "POST",
-                url: 'savetostream.php',
-                enctype: 'multipart/form-data',
-                data: formData,
-                cache: false,
-                contentType: false,
-                processData: false,
                 success: function (result) {
-                    $('#modifyModal').modal('toggle');
-                    $('#uploadimage')[0].reset();
                     $('#feedback').text(result);
-                    loadExplorer();
                 }
-            });
-        }));
+
+            })
+        }
+
 
         $("#logout").on('click', (function (e) {
             window.location = "http://localhost/unra/logout.php";
