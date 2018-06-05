@@ -43,12 +43,12 @@ $users = $funs->listStreamItems("users");
     <div id="container">
 
         <div>
-
+            <br>
             <table class="table table-bordered">
                 <thead>
                 <th>Username</th>
                 <th>Address</th>
-                <th>Action</th>
+<!--                <th>Action</th>-->
                 </thead>
                 <?php
                 if (!empty($users)) {
@@ -65,12 +65,11 @@ $users = $funs->listStreamItems("users");
                         <tr>
                             <td><?php echo $uname; ?></td>
                             <td><?php echo $ad; ?></td>
-                            <td><a href="#" onclick="makeAdmin('<?php echo $ad; ?>')">
-                                    <button class="btn btn-primary btn-sm">Make admin</button>
-                                </a></td>
+<!--                            <td><a href="#" onclick="makeAdmin('<?php //echo $ad; ?>')"-->
+<!--//                                    <button class="btn btn-primary btn-sm">Make admin</button>-->
+<!--//                                </a></td>-->
                         </tr>
                         <?php
-
                     }
                 } else {
                     echo "Error in connection";

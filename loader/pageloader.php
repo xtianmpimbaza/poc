@@ -19,7 +19,7 @@ if (isset($_POST['token'])) {
             echo $assets[0]['issuetxid'];
         }
     } elseif ($token == "grant_admin_rights") {
-        $funs->grantFrom($usr, $_POST['userid'], "admin,issue,receive,create,send");
+        $funs->grantFrom($usr, $_POST['userid'], "admin,connect,issue,receive,create,send");
         $errors = $funs->getErrors();
         if ($errors != "" && $errors != null) {
             echo $funs->getErrors();
@@ -43,15 +43,15 @@ if (isset($_POST['token'])) {
                 <div class="item">
                     <strong><a href="#"
                                onclick="setImage('<?php echo $item['details']['file']; ?>', '<?php echo $item['issuetxid']; ?>')"><?php echo $item['details']['file']; ?></a></strong><br/>
-                    <!--                    <br>-->
-                    <!--                    <span style="padding-left: 4px;">Name : -->
-                    <?php //echo $item['name'] ; ?><!--</span><br>-->
-                    <!--                    <span style="padding-left: 4px;">Land owner:      -->
-                    <?php //echo $item['details']['owner'] ; ?><!--</span><br>-->
-                    <!--                    <span style="padding-left: 4px;">Block number:      -->
-                    <?php //echo $item['details']['block'] ; ?><!--</span><br>-->
-                    <!--                    <span style="padding-left: 4px;">Publisher:      -->
-                    <?php //echo $item['details']['publisher'] ; ?><!--</span><br>-->
+<!--                                        <br>-->
+                                        <span style="padding-left: 4px;">Name :
+                    <?php echo $item['name'] ; ?></span><br>
+                                        <span style="padding-left: 4px;">Land owner:
+                    <?php echo $item['details']['owner'] ; ?></span><br>
+                                        <span style="padding-left: 4px;">Block number:
+                    <?php echo $item['details']['block'] ; ?></span><br>
+                                        <span style="padding-left: 4px;">Publisher:
+                    <?php echo $item['details']['publisher'] ; ?></span><br>
                 </div>
 
                 <?php

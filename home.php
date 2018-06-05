@@ -30,15 +30,26 @@ if (!isset($_SESSION['user_id'])) {
         <img src="img/header-logo.jpg" alt=""/>
         <span style="" class="col ">
             <span class="btn-group " role="group" aria-label="Basic example">
-                <button type="button" class="btn btn-primary" data-toggle="modal" data-target="#addUsersModal"> <i
-                            class="fa fa-user"></i> Add users</button>
+                <?php
+                if ($_SESSION['user'] == "admin") {
 
+
+                    ?>
+                    <button type="button" class="btn btn-primary" data-toggle="modal" data-target="#addUsersModal"> <i
+                                class="fa fa-user"></i> Add users</button>
+                <?php } ?>
                 <!--                <button type="button" class="btn btn-danger">Deactivate</button>-->
             </span>
             <span> <button type="button" class="btn btn-secondary" id="logout"> <i
                             class="fa fa-sign-out"></i>Logout </button></span>
-            <span> <a href="users.php">View Users</a></span>
+
+            <?php
+            if ($_SESSION['user'] == "admin") {
+                ?>
+                <span> <a href="users.php">View Users</a></span>
+            <?php } ?>
         </span>
+
         <span class="pull-right bg bg-warning"
               style="margin-right: 10%; font-weight: bold; margin-top: 20px; padding: 5px"><?php echo "User: " . $_SESSION['user']; ?></span>
     </div>
@@ -51,15 +62,20 @@ if (!isset($_SESSION['user_id'])) {
                     <div class="easyzoom easyzoom--overlay">
                         <a id="zoom_img" href="">
                             <img src="" id="displayimage" alt=""
-                                 style="height: 480px; margin: auto; width: auto;" class=""/>
+                                 style="height: 480px; margin: auto; max-width: 100%; width: auto;" class=""/>
                         </a>
                     </div>
                 </div>
             </div>
             <div class="btn-group text-center" role="group" aria-label="Basic example">
-                <button type="button" class="btn btn-primary" data-toggle="modal" data-target="#myModal"><i
-                            class="fa fa-plus"></i> Add Title
-                </button>
+
+                <?php
+                if ($_SESSION['user'] != "user2") {
+                    ?>
+                    <button type="button" class="btn btn-primary" data-toggle="modal" data-target="#myModal"><i
+                                class="fa fa-plus"></i> Add Title
+                    </button>
+                <?php } ?>
 
                 <button type="button" class="btn btn-success" id="viewdetails"><i
                             class="fa fa-edit"></i> Modify
@@ -228,8 +244,8 @@ if (!isset($_SESSION['user_id'])) {
 
     <script type="text/javascript">
 
-        var easyzoom = $('.easyzoom').easyZoom ();
-        var api      = easyzoom.data ('easyZoom');
+        var easyzoom = $('.easyzoom').easyZoom();
+        var api = easyzoom.data('easyZoom');
 
         $(document).ready(function () {
             loadImage();
@@ -272,10 +288,10 @@ if (!isset($_SESSION['user_id'])) {
             })
         }
 
-        function switch_image (std_src, zoom_src) {
+        function switch_image(std_src, zoom_src) {
             //std_src   = the source to your standard-image (small verison)
             //zoom_src  = the source to your zoom-image (big version)
-            api.swap (std_src, zoom_src);
+            api.swap(std_src, zoom_src);
         }
 
         function setImage(source, identifier) {
@@ -284,7 +300,7 @@ if (!isset($_SESSION['user_id'])) {
             $('a#zoom_img').attr('href', 'http://localhost:8080/ipfs/' + source);
             $('#displayimage').attr('src', 'http://localhost:8080/ipfs/' + source);
 
-            switch_image(img,img);
+            switch_image(img, img);
             document.getElementById('assetissueid').value = identifier;
 
 

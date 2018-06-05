@@ -54,7 +54,7 @@ $block = $asst[0]['details']['block'];
             <div class="btn-group text-center" role="group" aria-label="Basic example">
 
                 <button type="button" class="btn btn-success" data-toggle="modal" data-target="#modifyModal"><i
-                            class="fa fa-edit"></i> Modify
+                            class="fa fa-edit"></i> Add modified title
                 </button> <span style="margin-left: 12px; font-weight: bold; color: #002752;" id="feedback">  </span>
             </div>
         </div>
