@@ -2,7 +2,7 @@
 session_start();
 require_once('./inc/config.php');
 //print_r($_SESSION['user_id']);
-if (!isset($_SESSION['user_id'])){
+if (!isset($_SESSION['user_id'])) {
     header('Location: index.php');
 }
 ?>
@@ -15,6 +15,9 @@ if (!isset($_SESSION['user_id'])){
     <link rel="shortcut icon" href="./img/favicon.png" type="image/x-icon"/>
     <link href="./css/global.css" type="text/css" rel="stylesheet"/>
     <link rel="stylesheet" href="./css/style.css" type="text/css">
+
+    <link rel="stylesheet" href="./css/example.css"/>
+    <link rel="stylesheet" href="./css/easyzoom.css"/>
 
     <link href="vendor/bootstrap/css/bootstrap.min.css" rel="stylesheet">
     <link href="vendor/font-awesome/css/font-awesome.min.css" rel="stylesheet">
@@ -36,14 +39,21 @@ if (!isset($_SESSION['user_id'])){
                             class="fa fa-sign-out"></i>Logout </button></span>
             <span> <a href="users.php">View Users</a></span>
         </span>
-        <span class="pull-right bg bg-warning" style="margin-right: 10%; font-weight: bold; margin-top: 20px; padding: 5px"><?php echo "User: ".$_SESSION['user'];?></span>
+        <span class="pull-right bg bg-warning"
+              style="margin-right: 10%; font-weight: bold; margin-top: 20px; padding: 5px"><?php echo "User: " . $_SESSION['user']; ?></span>
     </div>
 
     <div id="container">
         <div class="left" style="">
             <div style="margin-top: 0px;margin-bottom: 15px; padding: 5px 5px; font-size: 16px; color: #555">
                 <div id="search" style="width: 850px;height: 480px;">
-                    <img id="displayimage" class="" src="" style="height: 480px; margin: auto; width: auto;">
+                    <!--                    <img id="displayimage" class="" src="" style="height: 480px; margin: auto; width: auto;">-->
+                    <div class="easyzoom easyzoom--overlay">
+                        <a id="zoom_img" href="">
+                            <img src="" id="displayimage" alt=""
+                                 style="height: 480px; margin: auto; width: auto;" class=""/>
+                        </a>
+                    </div>
                 </div>
             </div>
             <div class="btn-group text-center" role="group" aria-label="Basic example">
@@ -209,8 +219,18 @@ if (!isset($_SESSION['user_id'])){
     <script src="vendor/bootstrap/js/bootstrap.bundle.min.js"></script>
     <!-- Plugin JavaScript -->
     <script src="vendor/jquery-easing/jquery.easing.min.js"></script>
+    <script src="js/easyzoom.js"></script>
+    <script>
+        // Instantiate EasyZoom instances
+        // var $easyzoom = $('.easyzoom').easyZoom();
+
+    </script>
 
     <script type="text/javascript">
+
+        var easyzoom = $('.easyzoom').easyZoom ();
+        var api      = easyzoom.data ('easyZoom');
+
         $(document).ready(function () {
             loadImage();
             loadExplorer();
@@ -241,10 +261,33 @@ if (!isset($_SESSION['user_id'])){
                     token: "load_image"
                 },
                 success: function (data) {
+
                     $('#displayimage').attr('src', 'http://localhost:8080/ipfs/' + data);
+                    $('a#zoom_img').attr('href', 'http://localhost:8080/ipfs/' + data);
+                    // var std_src = 'http://localhost:8080/ipfs/' + source;
+                    // var zoom_src = 'http://localhost:8080/ipfs/' + source;
+                    // api.swap (std_src, zoom_src);
                 }
 
             })
+        }
+
+        function switch_image (std_src, zoom_src) {
+            //std_src   = the source to your standard-image (small verison)
+            //zoom_src  = the source to your zoom-image (big version)
+            api.swap (std_src, zoom_src);
+        }
+
+        function setImage(source, identifier) {
+            var img = 'http://localhost:8080/ipfs/' + source;
+
+            $('a#zoom_img').attr('href', 'http://localhost:8080/ipfs/' + source);
+            $('#displayimage').attr('src', 'http://localhost:8080/ipfs/' + source);
+
+            switch_image(img,img);
+            document.getElementById('assetissueid').value = identifier;
+
+
         }
 
         function loadissueid() {
@@ -259,13 +302,6 @@ if (!isset($_SESSION['user_id'])){
                 }
 
             })
-        }
-
-        function setImage(source, identifier) {
-            console.log(source);
-            $('#displayimage').attr('src', 'http://localhost:8080/ipfs/' + source);
-            document.getElementById('assetissueid').value = identifier;
-
         }
 
         $("form#uploadimage").on('submit', (function (e) {

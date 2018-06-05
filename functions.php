@@ -4,16 +4,11 @@ require_once 'easybitcoin.php';
 class Functions
 {
     protected $bitcoin;
-    protected $username = 'demochain';
-    protected $password = 'demochain';
+    protected $username = 'multichainrpc';
+    protected $password = 'H9TPbgUMVoJwKjYVqHSaEnGGTEMpTyD65N8RQQZ9WJm1';
     protected $host = '127.0.0.1';
-    protected $port = '4276';
-//protected $bitcoin;
-//    protected $username = 'unra';
-//    protected $password = 'unrapass';
-//    protected $host = '127.0.0.1';
-//    protected $port = '4370';
-//    protected $port = '6472';
+    protected $port = '4324';
+
 
     public function __construct()
     {
@@ -153,8 +148,9 @@ class Functions
 
     public function getInitialAdmin()
     {
-        $permissions = 'mine';
-        $addresses = $this->bitcoin->listpermissions($permissions);
+//        $permissions = 'mine';
+//        $addresses = $this->bitcoin->listpermissions($permissions);
+        $addresses = $this->bitcoin->listaddresses();
         return $addresses[0]['address'];
     }
 
