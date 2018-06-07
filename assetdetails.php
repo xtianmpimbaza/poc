@@ -3,18 +3,17 @@ require_once('./inc/config.php');
 require_once('functions.php');
 $fns = new Functions();
 
-//if (isset($_POST['logout'])){
-//    unset($_SESSION["user_id"]);
-//    echo 'logeed out';
-//    header('Location: localhost/unra/');
-//}
-
 $id = $_GET['id'];
 $asst = $fns->listAssetsById($id);
 $name = $asst[0]['name'];
 $owner = $asst[0]['details']['owner'];
 $block = $asst[0]['details']['block'];
+$stream = $asst[0]['details']['stream'];
 
+//print_r($name." deactivated");
+
+$status = $fns->listStreamKeyItems($stream,$name." deactivated");
+//print_r($status);
 ?>
 <!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN"
         "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
@@ -55,7 +54,13 @@ $block = $asst[0]['details']['block'];
 
                 <button type="button" class="btn btn-success" data-toggle="modal" data-target="#modifyModal"><i
                             class="fa fa-edit"></i> Add modified title
-                </button> <span style="margin-left: 12px; font-weight: bold; color: #002752;" id="feedback">  </span>
+                </button>
+                <?php if (empty($status)){?>
+                <button type="button" id="deactivate" class="btn btn-danger"><i
+                            class="fa fa-trash"></i> Deactivate
+                </button>
+                <?php }?>
+                <span style="margin-left: 12px; font-weight: bold; color: #002752;" id="feedback">  </span>
             </div>
         </div>
         <div class="right">
@@ -85,14 +90,16 @@ $block = $asst[0]['details']['block'];
                     <div>
                         <div>
                             <form action="" id="uploadimage">
-                                <input type="hidden" class="form-control" name="titlename" id="titlename" value="<?php echo $name; ?>">
+                                <input type="hidden" class="form-control" name="titlename" id="titlename"
+                                       value="<?php echo $name; ?>">
                                 <div class="form-group">
                                     <label for="reason">Modification Reason</label>
                                     <input type="text" class="form-control" name="reason" id="reason">
                                 </div>
                                 <div class="form-group">
                                     <label for="owner">Owner</label>
-                                    <input type="text" class="form-control" name="owner" value="<?php echo $owner; ?>" id="owner">
+                                    <input type="text" class="form-control" name="owner" value="<?php echo $owner; ?>"
+                                           id="owner">
                                 </div>
 
                                 <div class="form-group">
@@ -189,6 +196,28 @@ $block = $asst[0]['details']['block'];
                     $('#feedback').text(result);
                     loadExplorer();
                 }
+            });
+        }));
+
+        $("button#deactivate").on('click', (function (e) {
+            var dt = $('#assetissueid').val();
+
+            // console.log(dt);
+
+            $.ajax({
+                type: "POST",
+                url: "loader/pageloader.php",
+                data: {
+                    token: "deactivate",
+                    txid: dt,
+                    st_key: $("input#titlename").val(),
+                },
+                success: function (data) {
+                    if (data) {
+                        location.reload();
+                    }
+                }
+
             });
         }));
 

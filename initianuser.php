@@ -11,15 +11,15 @@ if (isset($_POST['username']) && isset($_POST['password'])) {
     $status = "active";
 //    $publisher = $_SESSION['user_id'];
     $stream = "users";
-    $gen_admin = $funs->getInitialAdmin();
+//    $gen_admin = $funs->getInitialAdmin();
 //    $user_address = $funs->getNewAddress();
 //    $funs->grantFrom($gen_admin,$user_address,"admin,activate,create,issue,receive,send,connect,mine");
 
-    $custom_fields = array('username' => $username, 'password' => $password, 'status' => $status, 'user_address' => $gen_admin);
+    $custom_fields = array('username' => $username, 'password' => $password, 'status' => $status);
     $hex = $funs->strToHex(json_encode($custom_fields));
 
 //    echo $gen_admin;
-    $fb = $funs->publishFrom($gen_admin, $stream, $username, $hex);
+    $fb = $funs->publishFrom($stream, $username, $hex);
 
     $errors = $funs->getErrors();
 

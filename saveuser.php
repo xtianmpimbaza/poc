@@ -10,13 +10,13 @@ if (isset($_POST['username']) && isset($_POST['password'])) {
     $username = $_POST['username'];
     $password = $_POST['password'];
     $status = "active";
-    $publisher = $_SESSION['user_id'];
+//    $publisher = $_SESSION['user_id'];  //
     $stream = "users";
-    $user_address = $funs->getNewAddress();
+//    $user_address = $funs->getNewAddress();
 
-    $custom_fields = array('username' => $username, 'password' => $password, 'status' => $status, 'user_address' => $user_address);
+    $custom_fields = array('username' => $username, 'password' => $password, 'status' => $status);
     $hex = $funs->strToHex(json_encode($custom_fields));
-    $fb = $funs->publishFrom($publisher, $stream, $username, $hex);
+    $fb = $funs->publishFrom($stream, $username, $hex);
 
     $errors = $funs->getErrors();
 
@@ -25,11 +25,6 @@ if (isset($_POST['username']) && isset($_POST['password'])) {
     }else{
         echo "User saved successifully";
     }
-//    if ($fb != "" && $fb != null) {
-//        echo "User saved successifully";
-//    }else{
-//        print_r($funs->getErrors());
-//    }
 
 } else {
     echo 'Fill all required fields';

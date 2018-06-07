@@ -9,7 +9,6 @@ $toarray = [];
 
 if (isset($_POST['login'])) {
 
-
     if (!empty($users)) {
         foreach ($users as $user) {
             $it = $funs->hexToStr($user['data']);
@@ -22,7 +21,7 @@ if (isset($_POST['login'])) {
 
             if ($_POST['username'] == $uname && $_POST['password'] == $pw) {
 //                echo "matched ".$dec['user_address'];  //login here
-                $_SESSION['user_id'] = $dec['user_address'];
+//                $_SESSION['user_id'] = $dec['user_address'];
                 $_SESSION['user'] = $dec['username'];
                 header('Location: home.php');
             }
@@ -75,7 +74,7 @@ $error = '';
     <div class="h1">POC -Login</div>
     <div id="form-content">
         <div class="group">
-            <label for="username">Email</label>
+            <label for="username">Username</label>
             <div><input id="text" name="username" class="form-control required" type="username" placeholder="Username">
             </div>
         </div>

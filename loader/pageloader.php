@@ -2,7 +2,7 @@
 session_start();
 require_once '../functions.php';
 $funs = new Functions();
-$usr = $_SESSION['user_id'];
+//$usr = $_SESSION['user_id'];
 
 if (isset($_POST['token'])) {
     $token = $_POST['token'];
@@ -19,7 +19,7 @@ if (isset($_POST['token'])) {
             echo $assets[0]['issuetxid'];
         }
     } elseif ($token == "grant_admin_rights") {
-        $funs->grantFrom($usr, $_POST['userid'], "admin,connect,issue,receive,create,send");
+        $funs->grantFrom($_POST['userid'], "admin,connect,issue,receive,create,send");
         $errors = $funs->getErrors();
         if ($errors != "" && $errors != null) {
             echo $funs->getErrors();
@@ -49,9 +49,7 @@ if (isset($_POST['token'])) {
                                         <span style="padding-left: 4px;">Land owner:
                     <?php echo $item['details']['owner'] ; ?></span><br>
                                         <span style="padding-left: 4px;">Block number:
-                    <?php echo $item['details']['block'] ; ?></span><br>
-                                        <span style="padding-left: 4px;">Publisher:
-                    <?php echo $item['details']['publisher'] ; ?></span><br>
+                    <?php echo $item['details']['block'] ; ?></span>
                 </div>
 
                 <?php
@@ -61,7 +59,12 @@ if (isset($_POST['token'])) {
 
         $issid = $_POST['asset'];
         $str = $funs->listAssetsById($issid)[0]['details']['stream'];
-        $res = $funs->listStreamItems($str);
+        $no_strm = str_replace("_stream", "", $str);
+        $key = str_replace("_", " ", $no_strm);
+//        $res = $funs->listStreamItemsByKey($str, "creamhill lands");
+        $res = $funs->listStreamItemsByKey($str, $key);
+//        print_r($key);
+//        $res = $funs->listStreamItems($str);
         ?>
 
         <div class="bg bg-warning container" style="padding: 4px; font-weight: bold;">
@@ -80,7 +83,7 @@ if (isset($_POST['token'])) {
                 ?>
                 <div class="item">
                     <strong><a href="#"
-                               onclick="setImage('<?php echo $dec['file']; ?>')"><?php echo $dec['file']; ?></a></strong>
+                               onclick="setImage('<?php echo $dec['file']; ?>//')"><?php echo $dec['file']; ?></a></strong>
                     <br>
                     <span style="padding-left: 4px;">Land owner : <?php echo $dec['owner']; ?></span><br>
                     <span style="padding-left: 4px;">Reason: <?php echo $dec['reason']; ?></span><br>
@@ -92,6 +95,22 @@ if (isset($_POST['token'])) {
 
 
         <?php
+    } elseif ($token == "deactivate") {
+//        st_key
+        $custom_fields = array('status' => "deactivated");
+        $hex = $funs->strToHex(json_encode($custom_fields));
+
+//                print_r($hex);
+        $str = $funs->listAssetsById($_POST['txid'])[0]['details']['stream'];
+        $fb = $funs->publishFrom($str, $_POST['st_key'].' deactivated', $hex);
+
+        $errors = $funs->getErrors();
+
+        if ($errors != "" && $errors != null) {
+            echo $funs->getErrors();
+        }else{
+            echo "Asset deactivated";
+        }
     }
 
 

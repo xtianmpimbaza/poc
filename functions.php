@@ -70,14 +70,14 @@ class Functions
 
     //=============================================================== streams
 
-    public function createStream($stream)
-    {
-        return $this->bitcoin->create("stream", $stream, false);
-    }
+//    public function createStream($stream)
+//    {
+//        return $this->bitcoin->create("stream", $stream, false);
+//    }
 
-    public function createStreamFrom($address, $streamname)
+    public function createStream($streamname)
     {
-        return $this->bitcoin->createfrom($address, "stream", $streamname, true);
+        return $this->bitcoin->create("stream", $streamname, true);
     }
 
     public function liststreams()
@@ -95,9 +95,21 @@ class Functions
         return $this->bitcoin->liststreamitems($stream);
     }
 
-    public function publishFrom($pub, $stream, $key, $hex)
+    public function listStreamKeyItems($stream, $key)
     {
-        return $this->bitcoin->publishfrom($pub, $stream, $key, $hex);
+        return $this->bitcoin->liststreamkeyitems($stream, $key, false, 1);
+    }
+
+public function listStreamItemsByKey($stream, $key)
+    {
+        return $this->bitcoin->liststreamkeyitems($stream, $key);
+    }
+
+
+    public function publishFrom($stream, $key, $hex)
+    {
+        return $this->bitcoin->publish($stream, $key, $hex);
+//        return $this->bitcoin->publishfrom($pub, $stream, $key, $hex);
     }
 
     public function hashImage($path)
@@ -129,20 +141,27 @@ class Functions
 
     //=============================================================== Permissions management
 
-    public function grantFrom($from, $to, $permissions)
+    public function grantFrom($to, $permissions)
     {
-        return $this->bitcoin->grantfrom($from, $to, $permissions); //permissions = a string of permissions comma delimited
+        return $this->bitcoin->grant($to, $permissions); //permissions = a string of permissions comma delimited
+//        return $this->bitcoin->grantfrom($from, $to, $permissions); //permissions = a string of permissions comma delimited
     }
 
-    public function revokeFrom($from, $to, $permissions)
+    public function revokeFrom($permissions)
     {
-        return $this->bitcoin->revokefrom($from, $to, $permissions); //permissions = a string of permissions comma delimited
+        return $this->bitcoin->revoke($permissions); //permissions = a string of permissions comma delimited
     }
 
     public function listPermissions()
     {
         $permissions = 'issue';
         $addresses = $this->bitcoin->listpermissions($permissions);
+        return $addresses[0]['address'];
+    }
+
+    public function listAddresses()
+    {
+        $addresses = $this->bitcoin->listaddresses();
         return $addresses[0]['address'];
     }
 

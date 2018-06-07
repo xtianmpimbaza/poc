@@ -1,6 +1,5 @@
 <?php
 session_start();
-//$_SESSION["user_id"] = "1aCr9dnyrNS6etJfyBroFaTV95j5hXsiaqVhzk";
 require_once 'functions.php';
 require 'ipfs/IPFS.php';
 
@@ -22,7 +21,7 @@ if (isset($_FILES["file"]["type"]) && isset($_POST['titlename'])) {
     $reason = $_POST['reason'];
     $owner = $_POST['owner'];
     $issid = $_POST['asset'];
-    $publisher = $_SESSION['user_id'];
+//    $publisher = $_SESSION['user_id'];
 
     $validextensions = array("jpeg", "jpg", "png");
     $temporary = explode(".", $filename);
@@ -43,12 +42,12 @@ if (isset($_FILES["file"]["type"]) && isset($_POST['titlename'])) {
 
             if ($hash != '' && $hash != null) {
 
-                $custom_fields = array('reason' => $reason, 'owner' => $owner, 'file' => $hash);
+                $custom_fields = array('reason' => $reason, 'owner' => $owner, 'file' => $hash, 'user' => $_SESSION['user']);
                 $hex = $funs->strToHex(json_encode($custom_fields));
 
 //                print_r($hex);
                 $str = $funs->listAssetsById($issid)[0]['details']['stream'];
-                $fb = $funs->publishFrom($publisher, $str, $title, $hex);
+                $fb = $funs->publishFrom($str, $title, $hex);
 
                 $errors = $funs->getErrors();
 

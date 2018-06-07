@@ -35,47 +35,53 @@ $users = $funs->listStreamItems("users");
                             class="fa fa-home"></i>Home </button></span>
             <span> <button type="button" class="btn btn-secondary" id="logout"> <i
                             class="fa fa-sign-out"></i>Logout </button></span>
-<!--            background-color: rgba(10,253,94,0.28)-->
-            <span style="margin-left: 12px; font-weight: bold; padding: 10px 5px; color: #002752; " id="feedback">  </span>
+            <!--            background-color: rgba(10,253,94,0.28)-->
+            <span style="margin-left: 12px; font-weight: bold; padding: 10px 5px; color: #002752; "
+                  id="feedback">  </span>
         </span>
     </div>
 
     <div id="container">
 
-        <div>
-            <br>
-            <table class="table table-bordered">
-                <thead>
-                <th>Username</th>
-                <th>Address</th>
-<!--                <th>Action</th>-->
-                </thead>
-                <?php
-                if (!empty($users)) {
-                    foreach ($users as $user) {
-                        $it = $funs->hexToStr($user['data']);
+        <div class="text-center">
+            <div class="col-md-6 text-center"><br>
+                <table class="table table-bordered table-hover">
+                    <thead class="bg bg-success">
+                    <th>#</th>
+                    <th>Username</th>
+                    <!--                <th>Address</th>-->
+                    <th>Status</th>
+                    </thead>
+                    <?php
+                    $formarter = 0;
+                    if (!empty($users)) {
 
-                        $toarray = "[" . $it . "]";
-                        $dec = json_decode($toarray, TRUE)[0];
+                        foreach ($users as $user) {
+                            $it = $funs->hexToStr($user['data']);
+                            $formarter += 1;
+                            $toarray = "[" . $it . "]";
+                            $dec = json_decode($toarray, TRUE)[0];
 
-                        $uname = $dec['username'];
-                        $ad = $dec['user_address'];
+                            $uname = $dec['username'];
+                            $ad = $dec['status'];
 
-                        ?>
-                        <tr>
-                            <td><?php echo $uname; ?></td>
-                            <td><?php echo $ad; ?></td>
-<!--                            <td><a href="#" onclick="makeAdmin('<?php //echo $ad; ?>')"-->
-<!--//                                    <button class="btn btn-primary btn-sm">Make admin</button>-->
-<!--//                                </a></td>-->
-                        </tr>
-                        <?php
+                            ?>
+                            <tr>
+                                <td><?php echo ($formarter) . ''; ?></td>
+                                <td><?php echo $uname; ?></td>
+                                <td><?php echo $ad; ?></td>
+                                <!--                            <td><a href="#" onclick="makeAdmin('<?php //echo $ad; ?>')"-->
+                                <!--//                                    <button class="btn btn-primary btn-sm">Make admin</button>-->
+                                <!--//                                </a></td>-->
+                            </tr>
+                            <?php
+                        }
+                    } else {
+                        echo "Error in connection";
                     }
-                } else {
-                    echo "Error in connection";
-                }
-                ?>
-            </table>
+                    ?>
+                </table>
+            </div>
         </div>
 
     </div>
@@ -138,10 +144,10 @@ $users = $funs->listStreamItems("users");
 
     <script type="text/javascript">
         // $(document).ready(function () {
-            // loadImage();
-            // loadExplorer();
-            // var def = $("#defaultimage").val();
-            // setImage(def);
+        // loadImage();
+        // loadExplorer();
+        // var def = $("#defaultimage").val();
+        // setImage(def);
         // });
 
         function makeAdmin(address) {

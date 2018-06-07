@@ -26,7 +26,7 @@ if (isset($_FILES["file"]["type"]) && isset($_POST['titlename'])) {
     $file_extension = end($temporary);
     $owner = $_POST['owner'];
     $block = $_POST['block'];
-    $publisher = $_SESSION['user_id'];
+//    $publisher = $_SESSION['user_id'];
 
     if ((($_FILES["file"]["type"] == "image/png") || ($_FILES["file"]["type"] == "image/jpg") || ($_FILES["file"]["type"] == "image/jpeg")
         ) && in_array($file_extension, $validextensions)) {
@@ -42,13 +42,14 @@ if (isset($_FILES["file"]["type"]) && isset($_POST['titlename'])) {
             $metadata = str_replace(" ", "_", $title) . "_stream";
 
             if ($hash != '' && $hash != null) {
-                $funs->createStreamFrom($_SESSION['user_id'], $metadata);
+                $funs->createStream($metadata);
 
 
+                $address = $funs->listAddresses();   //replace with exact address
 //                $address = $funs->listPermissions();   //replace with exact address
-                $address = $_SESSION['user_id'];
+//                $address = $_SESSION['user_id'];
 
-                $custom_fields = array('file' => $hash, 'stream' => $metadata, 'owner' => $owner, 'block' => $block, 'publisher' => $publisher);
+                $custom_fields = array('file' => $hash, 'stream' => $metadata, 'owner' => $owner, 'block' => $block, 'user' => $_SESSION['user']);
 
 
                 $errors = $funs->getErrors();
