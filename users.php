@@ -25,9 +25,9 @@ $users = $funs->listStreamItems("users");
     <link href="vendor/simple-line-icons/css/simple-line-icons.css" rel="stylesheet">
 </head>
 <body>
-<div class="container-fluid ">
-    <div style="padding: 0px; " class="">
-        <img src="img/header-logo.jpg" alt=""/>
+<div class="container-fluid text-center" style="">
+    <div style="border-radius: 5px;" class="header_div">
+        <img src="img/unra-logo.png" alt=""/>
         <span style="" class="col ">
             <span class="btn-group " role="group" aria-label="Basic example">
             </span>
@@ -35,7 +35,6 @@ $users = $funs->listStreamItems("users");
                             class="fa fa-home"></i>Home </button></span>
             <span> <button type="button" class="btn btn-secondary" id="logout"> <i
                             class="fa fa-sign-out"></i>Logout </button></span>
-            <!--            background-color: rgba(10,253,94,0.28)-->
             <span style="margin-left: 12px; font-weight: bold; padding: 10px 5px; color: #002752; "
                   id="feedback">  </span>
         </span>
@@ -44,12 +43,11 @@ $users = $funs->listStreamItems("users");
     <div id="container">
 
         <div class="text-center">
-            <div class="col-md-6 text-center"><br>
+            <div class="col-md-6 text-center" style="margin-left: auto; margin-right: auto"><br>
                 <table class="table table-bordered table-hover">
                     <thead class="bg bg-success">
                     <th>#</th>
                     <th>Username</th>
-                    <!--                <th>Address</th>-->
                     <th>Status</th>
                     </thead>
                     <?php

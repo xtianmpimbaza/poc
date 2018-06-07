@@ -26,7 +26,7 @@ if (!isset($_SESSION['user'])) {
 </head>
 <body>
 <div class="container-fluid ">
-    <div style="padding: 0px; " class="">
+    <div style="border-radius: 5px;" class="header_div">
         <img src="img/header-logo.jpg" alt=""/>
         <span style="" class="col ">
             <span class="btn-group " role="group" aria-label="Basic example">
@@ -78,7 +78,7 @@ if (!isset($_SESSION['user'])) {
                 <?php } ?>
 
                 <button type="button" class="btn btn-success" id="viewdetails"><i
-                            class="fa fa-edit"></i> Modify
+                            class="fa fa-edit"></i> View details
                 </button>
                 <span style="margin-left: 12px; font-weight: bold; color: #002752;" id="feedback"> </span>
 

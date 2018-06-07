@@ -9,10 +9,12 @@ $name = $asst[0]['name'];
 $owner = $asst[0]['details']['owner'];
 $block = $asst[0]['details']['block'];
 $stream = $asst[0]['details']['stream'];
+$user = isset($asst[0]['details']['user']) ? $asst[0]['details']['user'] : " ";
+$image = $asst[0]['details']['file'];
 
-//print_r($name." deactivated");
+//print_r($asst);
 
-$status = $fns->listStreamKeyItems($stream,$name." deactivated");
+$status = $fns->listStreamKeyItems($stream, $name . " deactivated");
 //print_r($status);
 ?>
 <!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN"
@@ -31,8 +33,8 @@ $status = $fns->listStreamKeyItems($stream,$name." deactivated");
 </head>
 <body>
 <div class="container-fluid ">
-    <div style="padding: 0px; " class="">
-        <img src="img/header-logo.jpg" alt=""/>
+    <div style="border-radius: 5px;" class="header_div">
+        <img src="img/unra-logo.png" alt=""/>
         <span style="" class="col ">
             <span class="btn-group " role="group" aria-label="Basic example">
             </span>
@@ -45,9 +47,42 @@ $status = $fns->listStreamKeyItems($stream,$name." deactivated");
 
     <div id="container">
         <div class="left" style="">
-            <div style="margin-top: 0px;margin-bottom: 15px; padding: 5px 5px; font-size: 16px; color: #555">
+            <div id="updates"
+                 style="margin-top: 0px;margin-bottom: 15px; padding: 5px 5px; font-size: 16px; color: #555">
                 <div id="search" style="width: 850px;height: 480px;">
                     <img id="displayimage" class="" src="" style="height: 480px; margin: auto; width: auto;">
+                </div>
+            </div>
+            <div id="dafault"
+                 style="margin-top: 0px;margin-bottom: 15px; padding: 5px 5px; font-size: 16px; color: #555">
+                <div id="search" style="width: 850px;height: 480px;">
+                    <table class="table table-bordered" id="hidden">
+                        <thead class="bg bg-dark" style="color: white;">
+                        <th>Key</th>
+                        <th>Value</th>
+                        <th>Image</th>
+                        </thead>
+                        <tr>
+                            <td><strong>Land title name</strong></td>
+                            <td><?php echo $name ?></td>
+                            <td rowspan="4"><img
+                                        src="http://localhost:8080/ipfs/<?php echo $image; ?>" alt=""
+                                        style="max-width: 200px; "></td>
+                        </tr>
+                        <tr>
+                            <td><strong>Land Owner</strong></td>
+                            <td><?php echo $owner ?></td>
+                        </tr>
+                        <tr>
+                            <td><strong>Block number</strong></td>
+                            <td><?php echo $block ?></td>
+                        </tr>
+                        <tr>
+                            <td><strong>Publisher</strong></td>
+                            <td><?php echo $user; ?></td>
+                        </tr>
+
+                    </table>
                 </div>
             </div>
             <div class="btn-group text-center" role="group" aria-label="Basic example">
@@ -55,11 +90,11 @@ $status = $fns->listStreamKeyItems($stream,$name." deactivated");
                 <button type="button" class="btn btn-success" data-toggle="modal" data-target="#modifyModal"><i
                             class="fa fa-edit"></i> Add modified title
                 </button>
-                <?php if (empty($status)){?>
-                <button type="button" id="deactivate" class="btn btn-danger"><i
-                            class="fa fa-trash"></i> Deactivate
-                </button>
-                <?php }?>
+                <?php if (empty($status)) { ?>
+                    <button type="button" id="deactivate" class="btn btn-danger"><i
+                                class="fa fa-trash"></i> Deactivate
+                    </button>
+                <?php } ?>
                 <span style="margin-left: 12px; font-weight: bold; color: #002752;" id="feedback">  </span>
             </div>
         </div>
@@ -101,17 +136,14 @@ $status = $fns->listStreamKeyItems($stream,$name." deactivated");
                                     <input type="text" class="form-control" name="owner" value="<?php echo $owner; ?>"
                                            id="owner">
                                 </div>
-
                                 <div class="form-group">
                                     <label for="file">Scanned copy</label>
                                     <input type="file" class="form-control" name="file" id="file">
                                 </div>
-
                                 <button type="submit" class="btn btn btn-success"><i class="fa fa-save"></i> Save
                                 </button>
                             </form>
                         </div>
-                        <!--                        <div>Supported file types: PDF, JPG, JPEG, PNG</div>-->
                     </div>
                 </div>
 
@@ -127,17 +159,24 @@ $status = $fns->listStreamKeyItems($stream,$name." deactivated");
 
     <script src="vendor/jquery/jquery.min.js"></script>
     <script src="vendor/bootstrap/js/bootstrap.bundle.min.js"></script>
-
     <!-- Plugin JavaScript -->
     <script src="vendor/jquery-easing/jquery.easing.min.js"></script>
 
     <script type="text/javascript">
         $(document).ready(function () {
-            // loadImage();
+            showDefault();
             loadExplorer();
-            // var def = $("#defaultimage").val();
-            // setImage(def);
         });
+
+        function showDefault() {
+            $("#updates").hide();
+            $("#dafault").show();
+        }
+
+        function showUpdates() {
+            $("#dafault").hide();
+            $("#updates").show();
+        }
 
         function loadExplorer() {
             $.ajax({
@@ -154,26 +193,10 @@ $status = $fns->listStreamKeyItems($stream,$name." deactivated");
             })
         }
 
-        function loadImage() {
-            $.ajax({
-                type: "POST",
-                url: "loader/pageloader.php",
-                data: {
-                    token: "load_image"
-                },
-                success: function (data) {
-                    // console.log()
-                    $('#displayimage').attr('src', 'http://localhost:8080/ipfs/' + data);
-                }
-
-            })
-        }
-
-
         function setImage(source) {
             console.log(source);
             $('#displayimage').attr('src', 'http://localhost:8080/ipfs/' + source);
-            // document.getElementById('assetissueid').value = identifier;
+            showUpdates();
 
         }
 
@@ -201,9 +224,6 @@ $status = $fns->listStreamKeyItems($stream,$name." deactivated");
 
         $("button#deactivate").on('click', (function (e) {
             var dt = $('#assetissueid').val();
-
-            // console.log(dt);
-
             $.ajax({
                 type: "POST",
                 url: "loader/pageloader.php",
