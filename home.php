@@ -14,9 +14,9 @@ if (!isset($_SESSION['user'])) {
     <title>UNRA-POC</title>
     <link rel="shortcut icon" href="./img/favicon.png" type="image/x-icon"/>
     <link href="./css/global.css" type="text/css" rel="stylesheet"/>
-    <link rel="stylesheet" href="./css/style.css" type="text/css">
+<!--    <link rel="stylesheet" href="./css/style.css" type="text/css">-->
 
-    <link rel="stylesheet" href="./css/example.css"/>
+<!--    <link rel="stylesheet" href="./css/example.css"/>-->
     <link rel="stylesheet" href="./css/easyzoom.css"/>
 
     <link href="vendor/bootstrap/css/bootstrap.min.css" rel="stylesheet">
@@ -25,10 +25,10 @@ if (!isset($_SESSION['user'])) {
     <link href="vendor/simple-line-icons/css/simple-line-icons.css" rel="stylesheet">
 </head>
 <body>
-<div class="container-fluid ">
+<div class="container-fluid">
     <div style="border-radius: 5px;" class="header_div">
-        <img src="img/header-logo.jpg" alt=""/>
-        <span style="" class="col ">
+        <img src="img/unra-logo.png" alt=""/>
+        <span style="" class="col">
             <span class="btn-group " role="group" aria-label="Basic example">
                 <?php
                 if ($_SESSION['user'] == "admin") {
@@ -51,49 +51,52 @@ if (!isset($_SESSION['user'])) {
         </span>
 
         <span class="pull-right bg bg-warning"
-              style="margin-right: 10%; font-weight: bold; margin-top: 20px; padding: 5px"><?php echo "User: " . $_SESSION['user']; ?></span>
+              style="margin-right: 10%; font-weight: bold; margin-top: 20px; padding: 5px"> <i class="fa fa-user-circle"> </i><?php echo " User " . $_SESSION['user']; ?></span>
     </div>
 
-    <div id="container">
-        <div class="left" style="">
-            <div style="margin-top: 0px;margin-bottom: 15px; padding: 5px 5px; font-size: 16px; color: #555">
-                <div id="search" style="width: 850px;height: 480px;">
-                    <!--                    <img id="displayimage" class="" src="" style="height: 480px; margin: auto; width: auto;">-->
-                    <div class="easyzoom easyzoom--overlay">
-                        <a id="zoom_img" href="">
-                            <img src="" id="displayimage" alt=""
-                                 style="height: 480px; margin: auto; max-width: 100%; width: auto;" class=""/>
-                        </a>
+    <div id="container" style="padding: 10px">
+        <div class="row">
+            <div class="col-md-8 left" style="">
+                <div style="margin-top: 0px;margin-bottom: 15px; padding: 5px 5px; font-size: 16px; color: #555">
+                    <div id="search" style="width: 850px;height: 480px;">
+                        <!--                    <img id="displayimage" class="" src="" style="height: 480px; margin: auto; width: auto;">-->
+                        <div class="easyzoom easyzoom--overlay">
+                            <a id="zoom_img" href="">
+                                <img src="" id="displayimage" alt=""
+                                     style="height: 480px; margin: auto; max-width: 100%; width: auto;" class=""/>
+                            </a>
+                        </div>
                     </div>
                 </div>
             </div>
-            <div class="btn-group text-center" role="group" aria-label="Basic example">
+            <div class="col-md-4 right">
+                <div id="advertisements" style="min-height: 500px;">
+                    <div class="title">Block Explorer</div>
+                    <div class="content explorer" id="pagexplorer">
 
-                <?php
-                if ($_SESSION['user'] != "user2") {
-                    ?>
-                    <button type="button" class="btn btn-primary" data-toggle="modal" data-target="#myModal"><i
-                                class="fa fa-plus"></i> Add Title
-                    </button>
-                <?php } ?>
-
-                <button type="button" class="btn btn-success" id="viewdetails"><i
-                            class="fa fa-edit"></i> View details
-                </button>
-                <span style="margin-left: 12px; font-weight: bold; color: #002752;" id="feedback"> </span>
-
-                <!--                <button type="button" class="btn btn-danger">Deactivate</button>-->
-            </div>
-        </div>
-        <div class="right">
-            <div id="advertisements">
-                <div class="title">Block Explorer</div>
-                <div class="content explorer" id="pagexplorer">
-
+                    </div>
                 </div>
-            </div>
 
+            </div>
         </div>
+        <div class="btn-group text-center" role="group" aria-label="Basic example" style="padding-top: 2px">
+
+            <?php
+            if ($_SESSION['user'] != "user2") {
+                ?>
+                <button type="button" class="btn btn-primary" data-toggle="modal" data-target="#myModal"><i
+                            class="fa fa-plus"></i> Add Title
+                </button>
+            <?php } ?>
+
+            <button type="button" class="btn btn-success" id="viewdetails"><i
+                        class="fa fa-edit"></i> View details
+            </button>
+            <span style="margin-left: 12px; font-weight: bold; color: #002752;" id="feedback"> </span>
+
+            <!--                <button type="button" class="btn btn-danger">Deactivate</button>-->
+        </div>
+
     </div>
     <!-- The Modal -->
     <div class="modal" id="myModal">
@@ -186,7 +189,6 @@ if (!isset($_SESSION['user'])) {
             </div>
         </div>
     </div>
-
 
     <!-- The Modal -->
     <div class="modal" id="modifyModal">

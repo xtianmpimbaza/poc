@@ -3,17 +3,41 @@ require_once 'functions.php';
 
 $funs = new Functions();
 
-//$path = 'F:\landtitle.png';
-//$image = $funs->hashImage($path);
-//$image = $funs->createStreamFrom("1aCr9dnyrNS6etJfyBroFaTV95j5hXsiaqVhzk","users");
-//$image = $funs->hexToStr("516d5a477168376374656b6f677138694e356450454d4e37786f42586d7a7a73467571427039466773756e7a724d");
-$status = $funs->listStreamKeyItems("creamhill_lands_stream", "creamhill lands"." deactivated");
-//$status = $fns->listStreamKeyItems(creamhill_lands_stream "creamhill lands",$name." deactivated");
-if (empty($status)){
-    print_r("empty");
-}else{
-    print_r($status);
-}
-
-print $funs->getErrors();
+//if (empty($status)){
+//    print_r("empty");
+//}else{
+//    print_r($status);
+//}
+//
+//print $funs->getErrors();
 ?>
+<html>
+<head>
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8"/>
+    <title>UNRA-POC</title>
+    <link rel="shortcut icon" href="./img/favicon.png" type="image/x-icon"/>
+    <!--    <link href="./css/global.css" type="text/css" rel="stylesheet"/>-->
+    <!--    <link rel="stylesheet" href="./css/style.css" type="text/css">-->
+
+    <!--    <link rel="stylesheet" href="./css/example.css"/>-->
+    <!--    <link rel="stylesheet" href="./css/easyzoom.css"/>-->
+
+    <link href="css/bootstrap.min.css" rel="stylesheet">
+    <!--    <link href="vendor/bootstrap/css/bootstrap.min.css" rel="stylesheet">-->
+    <!--    <link href="vendor/font-awesome/css/font-awesome.min.css" rel="stylesheet">-->
+    <!--    <link href="vendor/devicons/css/devicons.min.css" rel="stylesheet">-->
+    <!--    <link href="vendor/simple-line-icons/css/simple-line-icons.css" rel="stylesheet">-->
+</head>
+<body>
+<div class="container" style="background-color: #0c5460;">
+    <div class="row">
+            <div class="col-lg-3">
+                fhgjhk
+            </div>
+            <div class="col-lg-3">
+                fhgjhj
+            </div>
+    </div>
+</div>
+</body>
+</html>

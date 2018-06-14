@@ -45,68 +45,69 @@ $status = $fns->listStreamKeyItems($stream, $name . " deactivated");
         </span>
     </div>
 
-    <div id="container">
-        <div class="left" style="">
-            <div id="updates"
-                 style="margin-top: 0px;margin-bottom: 15px; padding: 5px 5px; font-size: 16px; color: #555">
-                <div id="search" style="width: 850px;height: 480px;">
-                    <img id="displayimage" class="" src="" style="height: 480px; margin: auto; width: auto;">
+    <div id="container" style="padding: 10px">
+        <div class="row">
+            <div class="col-md-8 left" style="">
+                <div id="updates"
+                     style="margin-top: 0px;margin-bottom: 15px; padding: 5px 5px; font-size: 16px; color: #555">
+                    <div id="search" style="width: 850px;height: 480px;">
+                        <img id="displayimage" class="" src="" style="height: 480px; margin: auto; width: auto;">
+                    </div>
+                </div>
+                <div id="dafault"
+                     style="margin-top: 0px;margin-bottom: 15px; padding: 5px 5px; font-size: 16px; color: #555">
+                    <div id="search" style="width: 850px;height: 480px;">
+                        <table class="table table-bordered" id="hidden">
+                            <thead class="bg bg-dark" style="color: white;">
+                            <th>Key</th>
+                            <th>Value</th>
+                            <th>Image</th>
+                            </thead>
+                            <tr>
+                                <td><strong>Land title name</strong></td>
+                                <td><?php echo $name ?></td>
+                                <td rowspan="4"><img
+                                            src="http://localhost:8080/ipfs/<?php echo $image; ?>" alt=""
+                                            style="max-width: 200px; "></td>
+                            </tr>
+                            <tr>
+                                <td><strong>Land Owner</strong></td>
+                                <td><?php echo $owner ?></td>
+                            </tr>
+                            <tr>
+                                <td><strong>Block number</strong></td>
+                                <td><?php echo $block ?></td>
+                            </tr>
+                            <tr>
+                                <td><strong>Publisher</strong></td>
+                                <td><?php echo $user; ?></td>
+                            </tr>
+
+                        </table>
+                    </div>
                 </div>
             </div>
-            <div id="dafault"
-                 style="margin-top: 0px;margin-bottom: 15px; padding: 5px 5px; font-size: 16px; color: #555">
-                <div id="search" style="width: 850px;height: 480px;">
-                    <table class="table table-bordered" id="hidden">
-                        <thead class="bg bg-dark" style="color: white;">
-                        <th>Key</th>
-                        <th>Value</th>
-                        <th>Image</th>
-                        </thead>
-                        <tr>
-                            <td><strong>Land title name</strong></td>
-                            <td><?php echo $name ?></td>
-                            <td rowspan="4"><img
-                                        src="http://localhost:8080/ipfs/<?php echo $image; ?>" alt=""
-                                        style="max-width: 200px; "></td>
-                        </tr>
-                        <tr>
-                            <td><strong>Land Owner</strong></td>
-                            <td><?php echo $owner ?></td>
-                        </tr>
-                        <tr>
-                            <td><strong>Block number</strong></td>
-                            <td><?php echo $block ?></td>
-                        </tr>
-                        <tr>
-                            <td><strong>Publisher</strong></td>
-                            <td><?php echo $user; ?></td>
-                        </tr>
+            <div class="col-md-4 right">
+                <div id="advertisements" style="min-height: 505px">
+                    <div class="title">Land Title Updates</div>
+                    <div class="content explorer" id="pagexplorer">
 
-                    </table>
+                    </div>
                 </div>
             </div>
-            <div class="btn-group text-center" role="group" aria-label="Basic example">
+        </div>
+        <div class="btn-group text-center" role="group" aria-label="Basic example" style="margin-top: 2px">
 
-                <button type="button" class="btn btn-success" data-toggle="modal" data-target="#modifyModal"><i
-                            class="fa fa-edit"></i> Add modified title
+            <button type="button" class="btn btn-success" data-toggle="modal" data-target="#modifyModal"><i
+                        class="fa fa-edit"></i> Add modified title
+            </button>
+            <?php if (empty($status)) { ?>
+                <button type="button" id="deactivate" class="btn btn-danger"><i
+                            class="fa fa-trash"></i> Deactivate
                 </button>
-                <?php if (empty($status)) { ?>
-                    <button type="button" id="deactivate" class="btn btn-danger"><i
-                                class="fa fa-trash"></i> Deactivate
-                    </button>
-                <?php } ?>
-                <span style="margin-left: 12px; font-weight: bold; color: #002752;" id="feedback">  </span>
-            </div>
+            <?php } ?>
+            <span style="margin-left: 12px; font-weight: bold; color: #002752;" id="feedback">  </span>
         </div>
-        <div class="right">
-            <div id="advertisements">
-                <div class="title">Land Title Updates</div>
-                <div class="content explorer" id="pagexplorer">
-
-                </div>
-            </div>
-        </div>
-
     </div>
 
     <!-- The Modal -->
