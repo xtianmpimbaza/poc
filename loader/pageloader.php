@@ -1,5 +1,6 @@
 <?php
 session_start();
+error_reporting(0);
 require_once '../functions.php';
 $funs = new Functions();
 //$usr = $_SESSION['user_id'];
@@ -11,7 +12,8 @@ if (isset($_POST['token'])) {
     if ($token == "load_image") {
         if (!empty($assets)) {
             $assets = array_reverse($assets);
-            echo $assets[0]['details']['file'];
+            $feed_data = json_encode(array('file' => $assets[0]['details']['file'], 'lat'=>$assets[0]['details']['lat'], 'long'=>$assets[0]['details']['long']), JSON_FORCE_OBJECT);
+            print_r($feed_data);
         }
     } elseif ($token == "load_issueid") {
         if (!empty($assets)) {
@@ -38,11 +40,14 @@ if (isset($_POST['token'])) {
             <?php
             foreach ($assets as $item) {
 //                $toarray =  "[".item."]";
-
+                $feed_data = json_encode(array('file' => $assets[0]['details']['file'], 'lat' => $assets[0]['details']['lat'], 'long' => $assets[0]['details']['long']), JSON_FORCE_OBJECT);
+                $lat = $item['details']['lat'] ? $item['details']['lat'] : "0";
+                $long = $item['details']['long'] ? $item['details']['long'] : "0";
+//                echo $lat;
                 ?>
                 <div class="item">
                     <strong><a href="#"
-                               onclick="setImage('<?php echo $item['details']['file']; ?>', '<?php echo $item['issuetxid']; ?>')"><?php echo $item['details']['file']; ?></a></strong><br/>
+                               onclick="setImage('<?php echo $item['details']['file']; ?>', '<?php echo $item['issuetxid']; ?>', '<?php echo $lat; ?>', '<?php echo $long; ?>')"><?php echo $item['details']['file']; ?></a></strong><br/>
 <!--                                        <br>-->
                                         <span style="padding-left: 4px;">Name :
                     <?php echo $item['name'] ; ?></span><br>
@@ -96,11 +101,9 @@ if (isset($_POST['token'])) {
 
         <?php
     } elseif ($token == "deactivate") {
-//        st_key
         $custom_fields = array('status' => "deactivated");
         $hex = $funs->strToHex(json_encode($custom_fields));
 
-//                print_r($hex);
         $str = $funs->listAssetsById($_POST['txid'])[0]['details']['stream'];
         $fb = $funs->publishFrom($str, $_POST['st_key'].' deactivated', $hex);
 
@@ -115,6 +118,4 @@ if (isset($_POST['token'])) {
 
 
 }
-
-//    print $funs->getErrors();
 ?>

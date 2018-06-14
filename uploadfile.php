@@ -18,6 +18,8 @@ if (isset($_FILES["file"]["type"]) && isset($_POST['titlename'])) {
     $file_ext = substr($filename, strripos($filename, '.')); // get file extention
     $filesize = $_FILES["file"]["size"];
     $title = '' . $_POST['titlename'];
+    $latitude = '' . $_POST['lat'];
+    $longitude = '' . $_POST['long'];
 
 //    $newfilename = md5($file_basename) . $file_ext;
 
@@ -45,11 +47,9 @@ if (isset($_FILES["file"]["type"]) && isset($_POST['titlename'])) {
                 $funs->createStream($metadata);
 
 
-                $address = $funs->listAddresses();   //replace with exact address
-//                $address = $funs->listPermissions();   //replace with exact address
-//                $address = $_SESSION['user_id'];
+                $address = $funs->listAddresses();
 
-                $custom_fields = array('file' => $hash, 'stream' => $metadata, 'owner' => $owner, 'block' => $block, 'user' => $_SESSION['user']);
+                $custom_fields = array('file' => $hash, 'stream' => $metadata, 'owner' => $owner, 'block' => $block, 'user' => $_SESSION['user'], 'lat'=>$latitude, 'long'=>$longitude);
 
 
                 $errors = $funs->getErrors();

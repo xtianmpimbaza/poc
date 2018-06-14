@@ -27,7 +27,7 @@ h1 { margin: 10px 0; padding: 10px 0; border-bottom: 1px solid #ddd; font-size: 
 #q { padding: 7px 20px 7px 6px; border: 2px solid #70b244; margin-top: 14px; background: #fff url(../img/bg-search.png) right no-repeat; font: 11px Tahoma, Geneva, sans-serif; width: 264px; }
 #q:hover, #q:focus { border-color: #4ac7f9; }
 
-#container .left { border-radius:6px; border: solid 3px #70b244; }
+#container .left { border-radius:6px; border: solid 3px #70b244; padding: 0px;}
 /*#container .left { margin-left: 20px; float: left; border-radius:6px; height:500px; border: solid 3px #70b244 !important; }*/
 
 #advertisements {background-color: #fff; border: #1b1e21 thin solid; border-radius: 6px; padding: 10px; font: 11px Tahoma, Geneva, sans-serif; color: #333;  }

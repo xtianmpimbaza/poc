@@ -14,11 +14,7 @@ if (!isset($_SESSION['user'])) {
     <title>UNRA-POC</title>
     <link rel="shortcut icon" href="./img/favicon.png" type="image/x-icon"/>
     <link href="./css/global.css" type="text/css" rel="stylesheet"/>
-<!--    <link rel="stylesheet" href="./css/style.css" type="text/css">-->
-
-<!--    <link rel="stylesheet" href="./css/example.css"/>-->
     <link rel="stylesheet" href="./css/easyzoom.css"/>
-
     <link href="vendor/bootstrap/css/bootstrap.min.css" rel="stylesheet">
     <link href="vendor/font-awesome/css/font-awesome.min.css" rel="stylesheet">
     <link href="vendor/devicons/css/devicons.min.css" rel="stylesheet">
@@ -51,21 +47,24 @@ if (!isset($_SESSION['user'])) {
         </span>
 
         <span class="pull-right bg bg-warning"
-              style="margin-right: 10%; font-weight: bold; margin-top: 20px; padding: 5px"> <i class="fa fa-user-circle"> </i><?php echo " User " . $_SESSION['user']; ?></span>
+              style="margin-right: 10%; font-weight: bold; margin-top: 20px; padding: 5px"> <i
+                    class="fa fa-user-circle"> </i><?php echo " User " . $_SESSION['user']; ?></span>
     </div>
 
     <div id="container" style="padding: 10px">
         <div class="row">
             <div class="col-md-8 left" style="">
-                <div style="margin-top: 0px;margin-bottom: 15px; padding: 5px 5px; font-size: 16px; color: #555">
-                    <div id="search" style="width: 850px;height: 480px;">
-                        <!--                    <img id="displayimage" class="" src="" style="height: 480px; margin: auto; width: auto;">-->
+                <div class="row">
+                    <div class="col-lg-8">
                         <div class="easyzoom easyzoom--overlay">
                             <a id="zoom_img" href="">
                                 <img src="" id="displayimage" alt=""
-                                     style="height: 480px; margin: auto; max-width: 100%; width: auto;" class=""/>
+                                     style="height: 500px; margin: auto; max-width: 100%; width: auto;" class=""/>
                             </a>
                         </div>
+                    </div>
+                    <div class="col-lg-4" id="map">
+
                     </div>
                 </div>
             </div>
@@ -116,20 +115,31 @@ if (!isset($_SESSION['user'])) {
                             <form action="" id="uploadimage">
                                 <div class="form-group">
                                     <label for="titlename">Land title name:</label>
-                                    <input type="text" class="form-control" name="titlename" id="titlename">
+                                    <input type="text" class="form-control" name="titlename" id="titlename"
+                                           required="required">
                                 </div>
                                 <div class="form-group">
                                     <label for="owner">Land owner:</label>
-                                    <input type="text" class="form-control" name="owner" id="owner">
+                                    <input type="text" class="form-control" name="owner" id="owner" required="required">
                                 </div>
                                 <div class="form-group">
                                     <label for="titlename">Block number:</label>
-                                    <input type="text" class="form-control" name="block" id="block">
+                                    <input type="text" class="form-control" name="block" id="block" required="required">
+                                </div>
+                                <div class="form-group">
+                                    <label for="location">Title cordinates:</label>
+                                    <div class="container">
+                                        <div class="row">
+                                            <input type="text" class="form-control col-lg-6"
+                                                   name="lat" id="lat" placeholder="Latitude" required="required">
+                                            <input type="text" class="form-control col-lg-6" name="long"
+                                                   id="long" placeholder="Longitude" required="required"></div>
+                                    </div>
                                 </div>
 
                                 <div class="form-group">
                                     <label for="file">Scanned copy</label>
-                                    <input type="file" class="form-control" name="file" id="file">
+                                    <input type="file" class="form-control" name="file" id="file" required="required">
                                 </div>
                                 <button type="submit" class="btn btn btn-success"><i class="fa fa-save"></i> Save
                                 </button>
@@ -238,11 +248,6 @@ if (!isset($_SESSION['user'])) {
     <!-- Plugin JavaScript -->
     <script src="vendor/jquery-easing/jquery.easing.min.js"></script>
     <script src="js/easyzoom.js"></script>
-    <script>
-        // Instantiate EasyZoom instances
-        // var $easyzoom = $('.easyzoom').easyZoom();
-
-    </script>
 
     <script type="text/javascript">
 
@@ -252,8 +257,8 @@ if (!isset($_SESSION['user'])) {
         $(document).ready(function () {
             loadImage();
             loadExplorer();
-            // var def = $("#defaultimage").val();
-            // setImage(def);
+            // initMap(-1.283431, 29.690475);
+
             loadissueid();
         });
 
@@ -280,12 +285,11 @@ if (!isset($_SESSION['user'])) {
                     token: "load_image"
                 },
                 success: function (data) {
-
-                    $('#displayimage').attr('src', 'http://localhost:8080/ipfs/' + data);
-                    $('a#zoom_img').attr('href', 'http://localhost:8080/ipfs/' + data);
-                    // var std_src = 'http://localhost:8080/ipfs/' + source;
-                    // var zoom_src = 'http://localhost:8080/ipfs/' + source;
-                    // api.swap (std_src, zoom_src);
+                    var jsob = JSON.parse(data);
+                    $('#displayimage').attr('src', 'http://localhost:8080/ipfs/' + jsob.file);
+                    $('a#zoom_img').attr('href', 'http://localhost:8080/ipfs/' + jsob.file);
+                    drawMap(parseFloat(jsob.lat), parseFloat(jsob.long));
+                    // console.log(jsob.lat);
                 }
 
             })
@@ -302,11 +306,25 @@ if (!isset($_SESSION['user'])) {
 
             $('a#zoom_img').attr('href', 'http://localhost:8080/ipfs/' + source);
             $('#displayimage').attr('src', 'http://localhost:8080/ipfs/' + source);
-
             switch_image(img, img);
             document.getElementById('assetissueid').value = identifier;
+        }
 
+        function setImage(source, identifier, lat, long) {
+            var img = 'http://localhost:8080/ipfs/' + source;
 
+            $('a#zoom_img').attr('href', 'http://localhost:8080/ipfs/' + source);
+            $('#displayimage').attr('src', 'http://localhost:8080/ipfs/' + source);
+
+            switch_image(img, img);
+            // drawMap(lat, long);
+            drawMap(parseFloat(lat), parseFloat(long));
+            document.getElementById('assetissueid').value = identifier;
+
+        }
+        
+        function initMap() {
+            
         }
 
         function loadissueid() {
@@ -315,6 +333,20 @@ if (!isset($_SESSION['user'])) {
                 url: "loader/pageloader.php",
                 data: {
                     token: "load_issueid"
+                },
+                success: function (data) {
+                    document.getElementById('assetissueid').value = data;
+                }
+
+            })
+        }
+
+        function loadCordinates() {
+            $.ajax({
+                type: "POST",
+                url: "loader/pageloader.php",
+                data: {
+                    token: "map_cordinates"
                 },
                 success: function (data) {
                     document.getElementById('assetissueid').value = data;
@@ -372,6 +404,24 @@ if (!isset($_SESSION['user'])) {
             window.location = "http://localhost/unra/assetdetails.php?id=" + isid;
         }));
 
+
+        function drawMap(lat, lng) {
+            // var myLatLng = {lat: -1.283431, lng: 29.690475};
+            var myLatLng = {lat: lat, lng: lng};
+
+            var map = new google.maps.Map(document.getElementById('map'), {
+                zoom: 12,
+                center: myLatLng
+            });
+
+            var marker = new google.maps.Marker({
+                position: myLatLng,
+                map: map,
+                title: 'Land location!'
+            });
+        }
     </script>
+
+    <script async defer src="js/maps.js"></script>
 </body>
 </html>

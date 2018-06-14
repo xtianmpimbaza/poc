@@ -2,11 +2,10 @@
 <project version="4">
   <component name="ChangeListManager">
     <list default="true" id="30315af5-f6a9-4ec8-a34a-33f4243927fc" name="Default" comment="">
-      <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/assetdetails.php" beforeDir="false" afterPath="$PROJECT_DIR$/assetdetails.php" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/css/global.css" beforeDir="false" afterPath="$PROJECT_DIR$/css/global.css" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/home.php" beforeDir="false" afterPath="$PROJECT_DIR$/home.php" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/test.php" beforeDir="false" afterPath="$PROJECT_DIR$/test.php" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/loader/pageloader.php" beforeDir="false" afterPath="$PROJECT_DIR$/loader/pageloader.php" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/uploadfile.php" beforeDir="false" afterPath="$PROJECT_DIR$/uploadfile.php" afterDir="false" />
     </list>
     <option name="EXCLUDED_CONVERTED_TO_IGNORED" value="true" />
     <option name="TRACKING_ENABLED" value="true" />
@@ -35,33 +34,46 @@
           </provider>
         </entry>
       </file>
-      <file leaf-file-name="home.php" pinned="false" current-in-tab="true">
+      <file leaf-file-name="home.php" pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/home.php">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="247">
-              <caret line="59" column="76" selection-start-line="59" selection-start-column="76" selection-end-line="59" selection-end-column="76" />
+            <state relative-caret-position="213">
+              <caret line="305" lean-forward="true" selection-start-line="305" selection-end-line="305" />
               <folding>
-                <element signature="n#style#0;n#div#0;n#div#0;n#div#0;n#div#1;n#div#0;n#body#0;n#html#0;n#!!top" expanded="true" />
-                <element signature="n#style#0;n#img#0;n#a#0;n#div#0;n#div#0;n#div#0;n#div#0;n#div#1;n#div#0;n#body#0;n#html#0;n#!!top" expanded="true" />
+                <element signature="n#style#0;n#img#0;n#a#0;n#div#0;n#div#0;n#div#0;n#div#0;n#div#0;n#div#1;n#div#0;n#body#0;n#html#0;n#!!top" expanded="true" />
               </folding>
             </state>
           </provider>
         </entry>
       </file>
-      <file leaf-file-name="test.php" pinned="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/test.php">
+      <file leaf-file-name="pageloader.php" pinned="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/loader/pageloader.php">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="544">
-              <caret line="32" column="21" selection-start-line="32" selection-start-column="21" selection-end-line="32" selection-end-column="21" />
+            <state relative-caret-position="34">
+              <caret line="2" column="19" selection-start-line="2" selection-start-column="19" selection-end-line="2" selection-end-column="19" />
             </state>
           </provider>
         </entry>
       </file>
-      <file leaf-file-name="global.css" pinned="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/css/global.css">
+      <file leaf-file-name="uploadfile.php" pinned="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/uploadfile.php">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="544">
-              <caret line="32" column="9" selection-start-line="32" selection-start-column="9" selection-end-line="32" selection-end-column="9" />
+            <state relative-caret-position="377">
+              <caret line="51" column="72" lean-forward="true" selection-start-line="51" selection-start-column="72" selection-end-line="51" selection-end-column="72" />
+            </state>
+          </provider>
+        </entry>
+      </file>
+      <file leaf-file-name="maps.js" pinned="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/js/maps.js">
+          <provider selected="true" editor-type-id="text-editor" />
+        </entry>
+      </file>
+      <file leaf-file-name="test.php" pinned="false" current-in-tab="true">
+        <entry file="file://$PROJECT_DIR$/test.php">
+          <provider selected="true" editor-type-id="text-editor">
+            <state relative-caret-position="269">
+              <caret line="32" column="21" selection-start-line="32" selection-start-column="21" selection-end-line="32" selection-end-column="21" />
             </state>
           </provider>
         </entry>
@@ -70,14 +82,6 @@
   </component>
   <component name="FindInProjectRecents">
     <findStrings>
-      <find>$publisher</find>
-      <find>addUsersModal</find>
-      <find>grant_admin_rights</find>
-      <find>publi</find>
-      <find>createStream</find>
-      <find>addre</find>
-      <find>user</find>
-      <find>email</find>
       <find>local</find>
       <find>modifyModal</find>
       <find>#uploadimage</find>
@@ -100,6 +104,14 @@
       <find>add t</find>
       <find>add m</find>
       <find>User</find>
+      <find>position</find>
+      <find>getCurrentPosition</find>
+      <find>Add a land title</find>
+      <find>initMap</find>
+      <find>load_image</find>
+      <find>set</find>
+      <find>cli</find>
+      <find>setIma</find>
     </findStrings>
     <replaceStrings>
       <replace>$filename</replace>
@@ -123,17 +135,17 @@
         <option value="$PROJECT_DIR$/js/easyzoom.js" />
         <option value="$PROJECT_DIR$/initianuser.php" />
         <option value="$PROJECT_DIR$/saveuser.php" />
-        <option value="$PROJECT_DIR$/uploadfile.php" />
         <option value="$PROJECT_DIR$/savetostream.php" />
         <option value="$PROJECT_DIR$/index.php" />
         <option value="$PROJECT_DIR$/functions.php" />
-        <option value="$PROJECT_DIR$/loader/pageloader.php" />
         <option value="$PROJECT_DIR$/users.php" />
         <option value="$PROJECT_DIR$/test.php" />
         <option value="$PROJECT_DIR$/css/style.css" />
-        <option value="$PROJECT_DIR$/css/global.css" />
         <option value="$PROJECT_DIR$/assetdetails.php" />
+        <option value="$PROJECT_DIR$/css/global.css" />
+        <option value="$PROJECT_DIR$/uploadfile.php" />
         <option value="$PROJECT_DIR$/home.php" />
+        <option value="$PROJECT_DIR$/loader/pageloader.php" />
       </list>
     </option>
   </component>
@@ -168,7 +180,7 @@
             <path>
               <item name="unra" type="b2602c69:ProjectViewProjectNode" />
               <item name="unra" type="462c0819:PsiDirectoryNode" />
-              <item name="css" type="462c0819:PsiDirectoryNode" />
+              <item name="js" type="462c0819:PsiDirectoryNode" />
             </path>
           </expand>
           <select />
@@ -178,7 +190,7 @@
     </panes>
   </component>
   <component name="PropertiesComponent">
-    <property name="SearchEverywhereHistoryKey" value="asset&#9;FILE&#9;file://C:/wamp/www/unra/assetdetails.php&#10;test&#9;FILE&#9;file://C:/wamp/www/unra/test.php&#10;hom&#9;FILE&#9;file://C:/wamp/www/unra/home.php&#10;user&#9;FILE&#9;file://C:/wamp/www/unra/users.php&#10;users&#9;FILE&#9;file://C:/wamp/www/unra/users.php&#10;assetdetails&#9;FILE&#9;file://C:/wamp/www/unra/assetdetails.php&#10;pageloader&#9;FILE&#9;file://C:/wamp/www/unra/loader/pageloader.php&#10;assetdetails.php&#9;FILE&#9;file://C:/wamp/www/unra/assetdetails.php&#10;uplo&#9;FILE&#9;file://C:/wamp/www/unra/uploadfile.php&#10;saveuser&#9;FILE&#9;file://C:/wamp/www/unra/saveuser.php&#10;loade&#9;FILE&#9;file://C:/wamp/www/unra/loader/pageloader.php&#10;functio&#9;FILE&#9;file://C:/wamp/www/unra/functions.php&#10;initianuser&#9;FILE&#9;file://C:/wamp/www/unra/initianuser.php&#10;uploadfile&#9;FILE&#9;file://C:/wamp/www/unra/uploadfile.php&#10;fun&#9;FILE&#9;file://C:/wamp/www/unra/functions.php&#10;home&#9;FILE&#9;file://C:/wamp/www/unra/home.php&#10;inde&#9;FILE&#9;file://C:/wamp/www/unra/index.php&#10;savetostream.&#9;FILE&#9;file://C:/wamp/www/unra/savetostream.php&#10;functions&#9;FILE&#9;file://C:/wamp/www/unra/functions.php&#10;advertisements&#9;FILE&#9;file://C:/wamp/www/unra/inc/advertisements.inc.php" />
+    <property name="SearchEverywhereHistoryKey" value="pageloader&#9;FILE&#9;file://C:/wamp/www/unra/loader/pageloader.php&#10;fil&#9;FILE&#9;file://C:/wamp/www/unra/uploadfile.php&#10;asset&#9;FILE&#9;file://C:/wamp/www/unra/assetdetails.php&#10;test&#9;FILE&#9;file://C:/wamp/www/unra/test.php&#10;hom&#9;FILE&#9;file://C:/wamp/www/unra/home.php&#10;user&#9;FILE&#9;file://C:/wamp/www/unra/users.php&#10;users&#9;FILE&#9;file://C:/wamp/www/unra/users.php&#10;assetdetails&#9;FILE&#9;file://C:/wamp/www/unra/assetdetails.php&#10;assetdetails.php&#9;FILE&#9;file://C:/wamp/www/unra/assetdetails.php&#10;uplo&#9;FILE&#9;file://C:/wamp/www/unra/uploadfile.php&#10;saveuser&#9;FILE&#9;file://C:/wamp/www/unra/saveuser.php&#10;loade&#9;FILE&#9;file://C:/wamp/www/unra/loader/pageloader.php&#10;functio&#9;FILE&#9;file://C:/wamp/www/unra/functions.php&#10;initianuser&#9;FILE&#9;file://C:/wamp/www/unra/initianuser.php&#10;uploadfile&#9;FILE&#9;file://C:/wamp/www/unra/uploadfile.php&#10;fun&#9;FILE&#9;file://C:/wamp/www/unra/functions.php&#10;home&#9;FILE&#9;file://C:/wamp/www/unra/home.php&#10;inde&#9;FILE&#9;file://C:/wamp/www/unra/index.php&#10;savetostream.&#9;FILE&#9;file://C:/wamp/www/unra/savetostream.php&#10;functions&#9;FILE&#9;file://C:/wamp/www/unra/functions.php&#10;advertisements&#9;FILE&#9;file://C:/wamp/www/unra/inc/advertisements.inc.php" />
     <property name="WebServerToolWindowFactoryState" value="false" />
     <property name="last_opened_file_path" value="$PROJECT_DIR$/../ezyzoom" />
     <property name="nodejs_interpreter_path.stuck_in_default_project" value="undefined stuck path" />
@@ -186,8 +198,8 @@
   </component>
   <component name="RecentsManager">
     <key name="CopyFile.RECENT_KEYS">
-      <recent name="C:\wamp\www\unra\uploads" />
       <recent name="C:\wamp\www\unra\js" />
+      <recent name="C:\wamp\www\unra\uploads" />
       <recent name="C:\wamp\www\unra\css" />
       <recent name="C:\wamp\www\unra" />
       <recent name="C:\wamp\www\unra\ipfs" />
@@ -234,18 +246,18 @@
       <workItem from="1528315431101" duration="7823000" />
       <workItem from="1528354024919" duration="10613000" />
       <workItem from="1528365752592" duration="5480000" />
-      <workItem from="1528958922093" duration="1650000" />
+      <workItem from="1528958922093" duration="16506000" />
     </task>
     <servers />
   </component>
   <component name="TimeTrackingManager">
-    <option name="totallyTimeSpent" value="235978000" />
+    <option name="totallyTimeSpent" value="250834000" />
   </component>
   <component name="ToolWindowManager">
     <frame x="-8" y="-8" width="1382" height="744" extended-state="6" />
     <editor active="true" />
     <layout>
-      <window_info content_ui="combo" id="Project" order="0" visible="true" weight="0.15582451" />
+      <window_info active="true" content_ui="combo" id="Project" order="0" visible="true" weight="0.15582451" />
       <window_info anchor="bottom" id="TODO" order="6" />
       <window_info anchor="bottom" id="Docker" order="7" show_stripe_button="false" />
       <window_info anchor="bottom" id="Event Log" order="7" side_tool="true" weight="0.32838285" />
@@ -284,13 +296,6 @@
     </breakpoint-manager>
   </component>
   <component name="editorHistoryManager">
-    <entry file="file://$PROJECT_DIR$/test.php">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="544">
-          <caret line="32" column="21" selection-start-line="32" selection-start-column="21" selection-end-line="32" selection-end-column="21" />
-        </state>
-      </provider>
-    </entry>
     <entry file="file://$PROJECT_DIR$/css/global.css">
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="544">
@@ -303,8 +308,7 @@
         <state relative-caret-position="901">
           <caret line="53" column="143" selection-start-line="53" selection-start-column="143" selection-end-line="53" selection-end-column="143" />
           <folding>
-            <element signature="n#style#0;n#div#0;n#div#0;n#div#0;n#div#1;n#div#0;n#body#0;n#html#0;n#!!top" expanded="true" />
-            <element signature="n#style#0;n#img#0;n#a#0;n#div#0;n#div#0;n#div#0;n#div#0;n#div#1;n#div#0;n#body#0;n#html#0;n#!!top" expanded="true" />
+            <element signature="n#style#0;n#img#0;n#a#0;n#div#0;n#div#0;n#div#0;n#div#0;n#div#0;n#div#1;n#div#0;n#body#0;n#html#0;n#!!top" expanded="true" />
           </folding>
         </state>
       </provider>
@@ -335,8 +339,7 @@
         <state relative-caret-position="918">
           <caret line="54" column="31" lean-forward="true" selection-start-line="54" selection-start-column="31" selection-end-line="54" selection-end-column="31" />
           <folding>
-            <element signature="n#style#0;n#div#0;n#div#0;n#div#0;n#div#1;n#div#0;n#body#0;n#html#0;n#!!top" expanded="true" />
-            <element signature="n#style#0;n#img#0;n#a#0;n#div#0;n#div#0;n#div#0;n#div#0;n#div#1;n#div#0;n#body#0;n#html#0;n#!!top" expanded="true" />
+            <element signature="n#style#0;n#img#0;n#a#0;n#div#0;n#div#0;n#div#0;n#div#0;n#div#0;n#div#1;n#div#0;n#body#0;n#html#0;n#!!top" expanded="true" />
           </folding>
         </state>
       </provider>
@@ -568,13 +571,6 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/uploadfile.php">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="697">
-          <caret line="41" column="53" selection-start-line="41" selection-start-column="24" selection-end-line="41" selection-end-column="53" />
-        </state>
-      </provider>
-    </entry>
     <entry file="file://$PROJECT_DIR$/functions.php">
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="1649">
@@ -582,20 +578,6 @@
           <folding>
             <element signature="n#upload#0;n#Functions#0;n#!!top" />
           </folding>
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/loader/pageloader.php">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="177">
-          <caret line="74" column="9" selection-start-line="74" selection-start-column="9" selection-end-line="74" selection-end-column="9" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/test.php">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="544">
-          <caret line="32" column="21" selection-start-line="32" selection-start-column="21" selection-end-line="32" selection-end-column="21" />
         </state>
       </provider>
     </entry>
@@ -613,13 +595,6 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/css/global.css">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="544">
-          <caret line="32" column="9" selection-start-line="32" selection-start-column="9" selection-end-line="32" selection-end-column="9" />
-        </state>
-      </provider>
-    </entry>
     <entry file="file://$PROJECT_DIR$/assetdetails.php">
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="378">
@@ -627,14 +602,44 @@
         </state>
       </provider>
     </entry>
+    <entry file="file://$PROJECT_DIR$/js/maps.js">
+      <provider selected="true" editor-type-id="text-editor" />
+    </entry>
+    <entry file="file://$PROJECT_DIR$/uploadfile.php">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="377">
+          <caret line="51" column="72" lean-forward="true" selection-start-line="51" selection-start-column="72" selection-end-line="51" selection-end-column="72" />
+        </state>
+      </provider>
+    </entry>
     <entry file="file://$PROJECT_DIR$/home.php">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="247">
-          <caret line="59" column="76" selection-start-line="59" selection-start-column="76" selection-end-line="59" selection-end-column="76" />
+        <state relative-caret-position="213">
+          <caret line="305" lean-forward="true" selection-start-line="305" selection-end-line="305" />
           <folding>
-            <element signature="n#style#0;n#div#0;n#div#0;n#div#0;n#div#1;n#div#0;n#body#0;n#html#0;n#!!top" expanded="true" />
-            <element signature="n#style#0;n#img#0;n#a#0;n#div#0;n#div#0;n#div#0;n#div#0;n#div#1;n#div#0;n#body#0;n#html#0;n#!!top" expanded="true" />
+            <element signature="n#style#0;n#img#0;n#a#0;n#div#0;n#div#0;n#div#0;n#div#0;n#div#0;n#div#1;n#div#0;n#body#0;n#html#0;n#!!top" expanded="true" />
           </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/loader/pageloader.php">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="34">
+          <caret line="2" column="19" selection-start-line="2" selection-start-column="19" selection-end-line="2" selection-end-column="19" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/css/global.css">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="235">
+          <caret line="29" column="79" lean-forward="true" selection-start-line="29" selection-start-column="79" selection-end-line="29" selection-end-column="79" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/test.php">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="269">
+          <caret line="32" column="21" selection-start-line="32" selection-start-column="21" selection-end-line="32" selection-end-column="21" />
         </state>
       </provider>
     </entry>
