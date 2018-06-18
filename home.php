@@ -54,7 +54,7 @@ if (!isset($_SESSION['user'])) {
     <div id="container" style="padding: 10px">
         <div class="row">
             <div class="col-md-8 left" style="">
-                <div class="row">
+                <div class="row" style="padding-right: 15px;">
                     <div class="col-lg-8">
                         <div class="easyzoom easyzoom--overlay">
                             <a id="zoom_img" href="">
@@ -63,8 +63,7 @@ if (!isset($_SESSION['user'])) {
                             </a>
                         </div>
                     </div>
-                    <div class="col-lg-4" id="map">
-
+                    <div class="col-lg-4 pull-left" id="map">
                     </div>
                 </div>
             </div>
@@ -322,9 +321,9 @@ if (!isset($_SESSION['user'])) {
             document.getElementById('assetissueid').value = identifier;
 
         }
-        
+
         function initMap() {
-            
+
         }
 
         function loadissueid() {
@@ -421,7 +420,8 @@ if (!isset($_SESSION['user'])) {
             });
         }
     </script>
-
-    <script async defer src="js/maps.js"></script>
+    <script async defer src="https://maps.googleapis.com/maps/api/js?key=AIzaSyBrq7fYUwuR36qIf3nwFSUgUjQwvuVc4T4&callback=initMap">
+    </script>
+<!--    <script async defer src="js/maps.js"></script>-->
 </body>
 </html>
