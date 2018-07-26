@@ -63,10 +63,10 @@ if (isset($_POST['login'])) {
     <link href="vendor/devicons/css/devicons.min.css" rel="stylesheet">
     <link href="vendor/simple-line-icons/css/simple-line-icons.css" rel="stylesheet">
 </head>
-<body><div>
+<body>
+<div>
 <?php
 $error = '';
-
 ?>
 
 <form id="login-form" class="login-form" name="form1" method="post" action="index.php">

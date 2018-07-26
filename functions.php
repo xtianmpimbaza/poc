@@ -100,7 +100,7 @@ class Functions
         return $this->bitcoin->liststreamkeyitems($stream, $key, false, 1);
     }
 
-public function listStreamItemsByKey($stream, $key)
+    public function listStreamItemsByKey($stream, $key)
     {
         return $this->bitcoin->liststreamkeyitems($stream, $key);
     }

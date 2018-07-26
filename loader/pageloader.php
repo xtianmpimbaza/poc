@@ -12,7 +12,7 @@ if (isset($_POST['token'])) {
     if ($token == "load_image") {
         if (!empty($assets)) {
             $assets = array_reverse($assets);
-            $feed_data = json_encode(array('file' => $assets[0]['details']['file'], 'lat'=>$assets[0]['details']['lat'], 'long'=>$assets[0]['details']['long']), JSON_FORCE_OBJECT);
+            $feed_data = json_encode(array('file' => $assets[0]['details']['file'], 'lat' => $assets[0]['details']['lat'], 'long' => $assets[0]['details']['long']), JSON_FORCE_OBJECT);
             print_r($feed_data);
         }
     } elseif ($token == "load_issueid") {
@@ -48,13 +48,13 @@ if (isset($_POST['token'])) {
                 <div class="item">
                     <strong><a href="#"
                                onclick="setImage('<?php echo $item['details']['file']; ?>', '<?php echo $item['issuetxid']; ?>', '<?php echo $lat; ?>', '<?php echo $long; ?>')"><?php echo $item['details']['file']; ?></a></strong><br/>
-<!--                                        <br>-->
-                                        <span style="padding-left: 4px;">Name :
-                    <?php echo $item['name'] ; ?></span><br>
-                                        <span style="padding-left: 4px;">Land owner:
-                    <?php echo $item['details']['owner'] ; ?></span><br>
-                                        <span style="padding-left: 4px;">Block number:
-                    <?php echo $item['details']['block'] ; ?></span>
+                    <!--                                        <br>-->
+                    <span style="padding-left: 4px;">Name :
+                        <?php echo $item['name']; ?></span><br>
+                    <span style="padding-left: 4px;">Land owner:
+                        <?php echo $item['details']['owner']; ?></span><br>
+                    <span style="padding-left: 4px;">Block number:
+                        <?php echo $item['details']['block']; ?></span>
                 </div>
 
                 <?php
@@ -84,14 +84,21 @@ if (isset($_POST['token'])) {
                 $it = $funs->hexToStr($item['data']);
                 $toarray = "[" . $it . "]";
                 $dec = json_decode($toarray, TRUE)[0];
-
                 ?>
                 <div class="item">
-                    <strong><a href="#"
-                               onclick="setImage('<?php echo $dec['file']; ?>//')"><?php echo $dec['file']; ?></a></strong>
-                    <br>
-                    <span style="padding-left: 4px;">Land owner : <?php echo $dec['owner']; ?></span><br>
-                    <span style="padding-left: 4px;">Reason: <?php echo $dec['reason']; ?></span><br>
+                    <div class="row">
+                        <div class="col-md-10">
+                            <strong><a href="#"
+                                       onclick="setImage('<?php echo $dec['file']; ?>//')"><?php echo $dec['file']; ?></a></strong>
+                            <br>
+                            <span style="padding-left: 4px;">Land owner : <?php echo $dec['owner']; ?></span><br>
+                            <span style="padding-left: 4px;">Reason: <?php echo $dec['reason']; ?></span><br>
+                        </div>
+                        <div class="col-md-2">
+                            <button class="btn btn-info btn-sm"><i class="fa fa-edit"></i></button>
+                        </div>
+                    </div>
+
                 </div>
                 <?php
             }
@@ -105,13 +112,13 @@ if (isset($_POST['token'])) {
         $hex = $funs->strToHex(json_encode($custom_fields));
 
         $str = $funs->listAssetsById($_POST['txid'])[0]['details']['stream'];
-        $fb = $funs->publishFrom($str, $_POST['st_key'].' deactivated', $hex);
+        $fb = $funs->publishFrom($str, $_POST['st_key'] . ' deactivated', $hex);
 
         $errors = $funs->getErrors();
 
         if ($errors != "" && $errors != null) {
             echo $funs->getErrors();
-        }else{
+        } else {
             echo "Asset deactivated";
         }
     }

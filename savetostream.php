@@ -21,6 +21,7 @@ if (isset($_FILES["file"]["type"]) && isset($_POST['titlename'])) {
     $reason = $_POST['reason'];
     $owner = $_POST['owner'];
     $issid = $_POST['asset'];
+    $identifier = rand();
 //    $publisher = $_SESSION['user_id'];
 
     $validextensions = array("jpeg", "jpg", "png");
@@ -39,10 +40,9 @@ if (isset($_FILES["file"]["type"]) && isset($_POST['titlename'])) {
             $imageContent = fread($fo, filesize($image));
             $hash = $ipfs->add($imageContent);
 
-
             if ($hash != '' && $hash != null) {
 
-                $custom_fields = array('reason' => $reason, 'owner' => $owner, 'file' => $hash, 'user' => $_SESSION['user']);
+                $custom_fields = array('reason' => $reason, 'owner' => $owner, 'file' => $hash, 'user' => $_SESSION['user'], 'id'=>$identifier);
                 $hex = $funs->strToHex(json_encode($custom_fields));
 
 //                print_r($hex);

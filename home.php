@@ -1,7 +1,6 @@
 <?php
 session_start();
 require_once('./inc/config.php');
-//print_r($_SESSION['user_id']);
 if (!isset($_SESSION['user'])) {
     header('Location: index.php');
 }
@@ -69,7 +68,7 @@ if (!isset($_SESSION['user'])) {
             </div>
             <div class="col-md-4 right">
                 <div id="advertisements" style="min-height: 500px;">
-                    <div class="title">Block Explorer</div>
+                    <div class="title" style="color: #0c5460">Audit trail</div>
                     <div class="content explorer" id="pagexplorer">
 
                     </div>
@@ -200,54 +199,56 @@ if (!isset($_SESSION['user'])) {
     </div>
 
     <!-- The Modal -->
-    <div class="modal" id="modifyModal">
-        <div class="modal-dialog">
-            <div class="modal-content">
-
-                <!-- Modal Header -->
-                <div class="modal-header">
-                    <h4 class="modal-title">Modify a land title</h4>
-                    <button type="button" class="close" data-dismiss="modal">&times;</button>
-                </div>
-
-                <!-- Modal body -->
-                <div class="modal-body">
-                    <div>
-                        <div>
-                            <form action="" id="">
-                                <div class="form-group text-hide">
-                                    <!--                                    <label for="">Land title name:</label>-->
-                                    <input type="hidden" class="form-control" name="" id="titlename">
-                                </div>
-
-                                <div class="form-group">
-                                    <label for="file">Scanned copy</label>
-                                    <input type="file" class="form-control" name="file" id="file">
-                                </div>
-                                <button type="submit" class="btn btn btn-success"><i class="fa fa-save"></i> Save
-                                </button>
-                            </form>
-                        </div>
-                        <!--                        <div>Supported file types: PDF, JPG, JPEG, PNG</div>-->
-                    </div>
-                </div>
-
-                <!-- Modal footer -->
-                <div class="modal-footer">
-                    <button type="button" class="btn btn-danger" data-dismiss="modal">Close</button>
-                </div>
-
-            </div>
+<!--    <div class="modal" id="modifyModal">-->
+<!--        <div class="modal-dialog">-->
+<!--            <div class="modal-content">-->
+<!---->
+<!--                <!-- Modal Header -->-->
+<!--                <div class="modal-header">-->
+<!--                    <h4 class="modal-title">Modify a land title</h4>-->
+<!--                    <button type="button" class="close" data-dismiss="modal">&times;</button>-->
+<!--                </div>-->
+<!---->
+<!--                <!-- Modal body -->-->
+<!--                <div class="modal-body">-->
+<!--                    <div>-->
+<!--                        <div>-->
+<!--                            <form action="" id="">-->
+<!--                                <div class="form-group text-hide">-->
+<!--                                    <!--                                    <label for="">Land title name:</label>-->-->
+<!--                                    <input type="hidden" class="form-control" name="" id="titlename">-->
+<!--                                </div>-->
+<!---->
+<!--                                <div class="form-group">-->
+<!--                                    <label for="file">Scanned copy</label>-->
+<!--                                    <input type="file" class="form-control" name="file" id="file">-->
+<!--                                </div>-->
+<!--                                <button type="submit" class="btn btn btn-success"><i class="fa fa-save"></i> Save-->
+<!--                                </button>-->
+<!--                            </form>-->
+<!--                        </div>-->
+<!--                        <!--                        <div>Supported file types: PDF, JPG, JPEG, PNG</div>-->-->
+<!--                    </div>-->
+<!--                </div>-->
+<!---->
+<!--                <!-- Modal footer -->-->
+<!--                <div class="modal-footer">-->
+<!--                    <button type="button" class="btn btn-danger" data-dismiss="modal">Close</button>-->
+<!--                </div>-->
+<!---->
+<!--            </div>-->
             <input type="hidden" id="assetissueid" name="assetissueid" value=""/>
-        </div>
-    </div>
+<!--        </div>-->
+<!--    </div>-->
 
     <script src="vendor/jquery/jquery.min.js"></script>
     <script src="vendor/bootstrap/js/bootstrap.bundle.min.js"></script>
     <!-- Plugin JavaScript -->
     <script src="vendor/jquery-easing/jquery.easing.min.js"></script>
     <script src="js/easyzoom.js"></script>
-
+    <script async defer
+            src="https://maps.googleapis.com/maps/api/js?key=AIzaSyBrq7fYUwuR36qIf3nwFSUgUjQwvuVc4T4&callback=initMap">
+    </script>
     <script type="text/javascript">
 
         var easyzoom = $('.easyzoom').easyZoom();
@@ -420,8 +421,7 @@ if (!isset($_SESSION['user'])) {
             });
         }
     </script>
-    <script async defer src="https://maps.googleapis.com/maps/api/js?key=AIzaSyBrq7fYUwuR36qIf3nwFSUgUjQwvuVc4T4&callback=initMap">
-    </script>
-<!--    <script async defer src="js/maps.js"></script>-->
+
+    <!--    <script async defer src="js/maps.js"></script>-->
 </body>
 </html>

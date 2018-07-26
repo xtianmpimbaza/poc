@@ -13,7 +13,6 @@ $user = isset($asst[0]['details']['user']) ? $asst[0]['details']['user'] : " ";
 $image = $asst[0]['details']['file'];
 
 //print_r($asst);
-
 $status = $fns->listStreamKeyItems($stream, $name . " deactivated");
 //print_r($status);
 ?>
@@ -98,10 +97,11 @@ $status = $fns->listStreamKeyItems($stream, $name . " deactivated");
         </div>
         <div class="btn-group text-center" role="group" aria-label="Basic example" style="margin-top: 2px">
 
-            <button type="button" class="btn btn-success" data-toggle="modal" data-target="#modifyModal"><i
-                        class="fa fa-edit"></i> Add modified title
-            </button>
+
             <?php if (empty($status)) { ?>
+                <button type="button" class="btn btn-success" data-toggle="modal" data-target="#modifyModal"><i
+                            class="fa fa-edit"></i> Add modified title
+                </button>
                 <button type="button" id="deactivate" class="btn btn-danger"><i
                             class="fa fa-trash"></i> Deactivate
                 </button>
@@ -248,7 +248,6 @@ $status = $fns->listStreamKeyItems($stream, $name . " deactivated");
         $("#home").on('click', (function (e) {
             window.location = "http://localhost/unra/home.php";
         }));
-
 
     </script>
 </body>
