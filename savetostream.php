@@ -21,7 +21,8 @@ if (isset($_FILES["file"]["type"]) && isset($_POST['titlename'])) {
     $reason = $_POST['reason'];
     $owner = $_POST['owner'];
     $issid = $_POST['asset'];
-    $identifier = rand();
+    $parent_id = $_POST['parent_id'];
+    $identifier = "".time();
 //    $publisher = $_SESSION['user_id'];
 
     $validextensions = array("jpeg", "jpg", "png");
@@ -42,10 +43,10 @@ if (isset($_FILES["file"]["type"]) && isset($_POST['titlename'])) {
 
             if ($hash != '' && $hash != null) {
 
-                $custom_fields = array('reason' => $reason, 'owner' => $owner, 'file' => $hash, 'user' => $_SESSION['user'], 'id'=>$identifier);
+                $custom_fields = array('reason' => $reason, 'owner' => $owner, 'file' => $hash, 'user' => $_SESSION['user'], 'identifier'=>$identifier, 'parent_id'=>$parent_id);
                 $hex = $funs->strToHex(json_encode($custom_fields));
 
-//                print_r($hex);
+
                 $str = $funs->listAssetsById($issid)[0]['details']['stream'];
                 $fb = $funs->publishFrom($str, $title, $hex);
 

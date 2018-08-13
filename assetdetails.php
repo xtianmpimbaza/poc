@@ -1,4 +1,5 @@
 <?php
+error_reporting(0);
 require_once('./inc/config.php');
 require_once('functions.php');
 $fns = new Functions();
@@ -6,6 +7,7 @@ $fns = new Functions();
 $id = $_GET['id'];
 $asst = $fns->listAssetsById($id);
 $name = $asst[0]['name'];
+$identifier = $asst[0]['details']['identifier'];
 $owner = $asst[0]['details']['owner'];
 $block = $asst[0]['details']['block'];
 $stream = $asst[0]['details']['stream'];
@@ -95,17 +97,24 @@ $status = $fns->listStreamKeyItems($stream, $name . " deactivated");
                 </div>
             </div>
         </div>
+<!--        <input type="hidden" name="show_hide" class="show_hide" value="disable_edit">-->
         <div class="btn-group text-center" role="group" aria-label="Basic example" style="margin-top: 2px">
 
 
             <?php if (empty($status)) { ?>
+                <input type="hidden" class="show_hide" value="allow_edit">
                 <button type="button" class="btn btn-success" data-toggle="modal" data-target="#modifyModal"><i
                             class="fa fa-edit"></i> Add modified title
                 </button>
                 <button type="button" id="deactivate" class="btn btn-danger"><i
                             class="fa fa-trash"></i> Deactivate
                 </button>
-            <?php } ?>
+            <?php } else{
+                ?>
+                <input type="hidden" class="show_hide" value="disable_edit">
+                <?php
+            }
+            ?>
             <span style="margin-left: 12px; font-weight: bold; color: #002752;" id="feedback">  </span>
         </div>
     </div>
@@ -128,6 +137,9 @@ $status = $fns->listStreamKeyItems($stream, $name . " deactivated");
                             <form action="" id="uploadimage">
                                 <input type="hidden" class="form-control" name="titlename" id="titlename"
                                        value="<?php echo $name; ?>">
+                                <input type="hidden" class="form-control" name="parent_id" id="parent_id"
+                                       value="<?php echo $identifier; ?>">
+
                                 <div class="form-group">
                                     <label for="reason">Modification Reason</label>
                                     <input type="text" class="form-control" name="reason" id="reason">
@@ -158,6 +170,59 @@ $status = $fns->listStreamKeyItems($stream, $name . " deactivated");
         </div>
     </div>
 
+
+    <div class="modal" id="seperationModal">
+        <div class="modal-dialog">
+            <div class="modal-content">
+
+                <!-- Modal Header -->
+                <div class="modal-header">
+                    <h4 class="modal-title">Modify a land title</h4>
+                    <button type="button" class="close" data-dismiss="modal">&times;</button>
+                </div>
+
+                <!-- Modal body -->
+                <div class="modal-body">
+                    <div>
+                        <div>
+                            <form action="" id="seperationTitle">
+                                <input type="hidden" class="form-control" name="sp_stream" id="sp_titlename"
+                                       value="">
+                                <input type="hidden" class="form-control" name="sp_parent_id" id="sp_parent_id"
+                                       value="">
+
+                                <div class="form-group">
+                                    <label for="reason">Reason</label>
+                                    <input type="text" class="form-control" name="sp_reason" id="sp_reason">
+                                </div>
+                                <div class="form-group">
+                                    <label for="owner">Owner</label>
+                                    <input type="text" class="form-control" name="sp_owner"
+                                           value="<?php echo $owner; ?>"
+                                           id="sp_owner">
+                                </div>
+                                <div class="form-group">
+                                    <label for="file">Scanned copy</label>
+                                    <input type="file" class="form-control" name="sp_file" id="sp_file">
+                                </div>
+                                <button type="submit" class="btn btn btn-success"><i class="fa fa-save"></i> Save
+                                </button>
+                            </form>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Modal footer -->
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-danger" data-dismiss="modal">Close</button>
+                </div>
+
+            </div>
+            <input type="hidden" id="assetissueid" name="assetissueid" value="<?php echo $_GET['id']; ?>"/>
+        </div>
+    </div>
+
+
     <script src="vendor/jquery/jquery.min.js"></script>
     <script src="vendor/bootstrap/js/bootstrap.bundle.min.js"></script>
     <!-- Plugin JavaScript -->
@@ -180,27 +245,36 @@ $status = $fns->listStreamKeyItems($stream, $name . " deactivated");
         }
 
         function loadExplorer() {
+            var status = document.querySelector('.show_hide').value;
+            // console.log(status);
             $.ajax({
                 type: "POST",
                 url: "loader/pageloader.php",
                 data: {
                     token: "load_stream_items",
+                    status: status,
                     asset: $('#assetissueid').val()
                 },
                 success: function (data) {
                     $('#pagexplorer').html(data);
+                    // console.log(status);
                 }
-
             })
+        }
+
+        function seperate(data, stream) {
+            console.log(data);
+            console.log(stream);
+            $('input#sp_titlename').val(stream);
+            $('input#sp_parent_id').val(data);
+            $('#seperationModal').modal('show');
         }
 
         function setImage(source) {
             console.log(source);
             $('#displayimage').attr('src', 'http://localhost:8080/ipfs/' + source);
             showUpdates();
-
         }
-
 
         $("form#uploadimage").on('submit', (function (e) {
             e.preventDefault();
@@ -219,6 +293,28 @@ $status = $fns->listStreamKeyItems($stream, $name . " deactivated");
                     $('#uploadimage')[0].reset();
                     $('#feedback').text(result);
                     loadExplorer();
+                }
+            });
+        }));
+
+        $("form#seperationTitle").on('submit', (function (e) {
+            e.preventDefault();
+            var formData = new FormData(this);
+            formData.append("token", "add_detail_stream");
+            // formData.append("stream", "add_detail_stream");
+            $.ajax({
+                type: "POST",
+                url: 'loader/pageloader.php',
+                enctype: 'multipart/form-data',
+                data: formData,
+                cache: false,
+                contentType: false,
+                processData: false,
+                success: function (data) {
+                    $('#seperationModal').modal('toggle');
+                    // $('#feedback').text(result);
+                    loadExplorer();
+                    // console.log(data);
                 }
             });
         }));

@@ -28,6 +28,7 @@ if (isset($_FILES["file"]["type"]) && isset($_POST['titlename'])) {
     $file_extension = end($temporary);
     $owner = $_POST['owner'];
     $block = $_POST['block'];
+    $identifier = "".time();
 //    $publisher = $_SESSION['user_id'];
 
     if ((($_FILES["file"]["type"] == "image/png") || ($_FILES["file"]["type"] == "image/jpg") || ($_FILES["file"]["type"] == "image/jpeg")
@@ -49,7 +50,7 @@ if (isset($_FILES["file"]["type"]) && isset($_POST['titlename'])) {
 
                 $address = $funs->listAddresses();
 
-                $custom_fields = array('file' => $hash, 'stream' => $metadata, 'owner' => $owner, 'block' => $block, 'user' => $_SESSION['user'], 'lat'=>$latitude, 'long'=>$longitude);
+                $custom_fields = array('file' => $hash, 'stream' => $metadata, 'owner' => $owner, 'block' => $block, 'user' => $_SESSION['user'], 'lat'=>$latitude, 'long'=>$longitude, 'identifier'=>$identifier);
 
 
                 $errors = $funs->getErrors();
