@@ -100,8 +100,9 @@ $status = $fns->listStreamKeyItems($stream, $name . " deactivated");
 <!--        <input type="hidden" name="show_hide" class="show_hide" value="disable_edit">-->
         <div class="btn-group text-center" role="group" aria-label="Basic example" style="margin-top: 2px">
 
+            <?php if (empty($status)) {
+                ?>
 
-            <?php if (empty($status)) { ?>
                 <input type="hidden" class="show_hide" value="allow_edit">
                 <button type="button" class="btn btn-success" data-toggle="modal" data-target="#modifyModal"><i
                             class="fa fa-edit"></i> Add modified title
@@ -257,7 +258,7 @@ $status = $fns->listStreamKeyItems($stream, $name . " deactivated");
                 },
                 success: function (data) {
                     $('#pagexplorer').html(data);
-                    // console.log(status);
+                    console.log(data);
                 }
             })
         }

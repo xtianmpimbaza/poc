@@ -157,6 +157,8 @@ if (isset($_POST['token'])) {
                 $it = $funs->hexToStr($item['data']);
                 $toarray = "[" . $it . "]";
                 $dec = json_decode($toarray, TRUE)[0];
+//                print_r($status);
+//                return;
                 ?>
                 <div class="item">
                     <div class="row">
@@ -168,9 +170,10 @@ if (isset($_POST['token'])) {
                             <span style="padding-left: 4px;">Reason: <?php echo $dec['reason']; ?></span><br>
                         </div>
                         <div class="col-md-2">
-                            <?php if ($status == 'show_edit') { ?>
+                            <?php if ($status == 'allow_edit') { ?>
+<!--                            --><?php //echo $status; ?>
                                 <button class="btn btn-info btn-sm"
-                                        onclick="return seperate('<?php echo($dec['identifier']); ?>//','<?php echo $str; ?>//');">
+                                        onclick="return seperate('<?php echo($dec['identifier']); ?>','<?php echo $str; ?>');">
                                     <i class="fa fa-edit"></i></button>
                             <?php } ?>
                         </div>
